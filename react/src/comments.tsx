@@ -17,8 +17,9 @@ interface CommentsProps {
     colors?: 'light' | 'dark' | 'os',
     loading?: 'default' | 'lazy' | 'manual',
 
-    settings?: Settings,
-    translations?: Translations
+    settings?: Partial<Settings>,
+    translations?: Partial<Translations>
+
 }
 
 export function Comments(props: CommentsProps) {
@@ -29,15 +30,29 @@ export function Comments(props: CommentsProps) {
 
         addCommentsEmbedScript();
 
-        const comments = document.createElement('hyvor-talk-comments');
+        customElements.whenDefined('hyvor-talk-comments').then(() => {
 
-        for (const [key, value] of Object.entries(props)) {
-            if (value !== undefined) {
-                comments.setAttribute(key, value);
+            const comments = document.createElement('hyvor-talk-comments') as HTMLElement & {
+                settings: Partial<Settings>,
+                translations: Partial<Translations>
+            };
+    
+            for (const [key, value] of Object.entries(props)) {
+                if (value !== undefined) {
+                    if (key === 'settings' || key === 'translations') {
+                        comments[key] = value;
+                    } else {
+                        comments.setAttribute(key, value);
+                    }
+                }
             }
-        }
+    
+            if (ref.current) {
+                ref.current.innerHTML = '';
+                ref.current.appendChild(comments);
+            }
 
-        ref.current?.appendChild(comments);
+        });
 
     }, []);
 
