@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import type { Settings, Translations } from '../../types';
+import { addScriptIfNotAdded } from './helper';
 
 interface CommentsProps {
 
@@ -28,7 +29,7 @@ export function Comments(props: CommentsProps) {
 
     useEffect(() => {
 
-        addCommentsEmbedScript();
+        addScriptIfNotAdded('https://talk.hyvor.com/embed/embed.js');
 
         customElements.whenDefined('hyvor-talk-comments').then(() => {
 
@@ -57,20 +58,5 @@ export function Comments(props: CommentsProps) {
     }, []);
 
     return <div ref={ref}></div>
-
-}
-
-
-export function addCommentsEmbedScript() {
-
-    if (!document.querySelector('script[src="https://talk.hyvor.com/embed/embed.js"]')) {
-        const script = document.createElement('script');
-
-        script.src = 'https://talk.hyvor.com/embed/embed.js';
-        script.async = true;
-        script.type = 'module';
-
-        document.body.appendChild(script);
-    }
 
 }

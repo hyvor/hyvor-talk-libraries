@@ -1,4 +1,11 @@
-
+declare global {
+    namespace JSX {
+        interface IntrinsicElements {
+            'hyvor-talk-comments': any,
+            'hyvor-talk-comment-count': any
+        }
+    }
+}
 
 export interface Settings {
 

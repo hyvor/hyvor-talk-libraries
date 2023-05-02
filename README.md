@@ -4,10 +4,22 @@
 
 Install the library using npm depending on your framework.
 
+React
+
 ```bash
-npm install @hyvor-talk/react # for react
-npm install @hyvor-talk/vue # for vue 
-npm install @hyvor-talk/svelte # for svelte
+npm install @hyvor-talk/react
+```
+
+Vue
+
+```bash
+npm install @hyvor-talk/vue
+```
+
+Svelte
+
+```bash
+npm install @hyvor-talk/svelte
 ```
 
 ### Usage
@@ -15,7 +27,7 @@ npm install @hyvor-talk/svelte # for svelte
 All libraries include two components:
 
 - Comments - The comments embed (wrapper around [hyvor-talk-comments](https://talk.hyvor.com/docsv3/install) Web Component)
-- CommentCount - Comment counts widget (wrapper around [hyvor-talk-count](https://talk.hyvor.com/docsv3/install) Web Component)
+- CommentCount - Comment counts widget (wrapper around [hyvor-talk-comment-count](https://talk.hyvor.com/docsv3/install) Web Component)
 
 ### Comments
 
@@ -37,3 +49,62 @@ const App = () => {
 ```
 
 Other libraries have the same API. For example, `import { Comments } from '@hyvor-talk/vue` for Vue.
+
+### Comment Counts
+
+All props in the `<CommentCount>` component are the same as the base [hyvor-talk-comment-count](https://talk.hyvor.com/docsv3/comment-counts) Web Component.
+
+If you only have one `<CommentCount>` in the page, use the component directly:
+
+```jsx
+import React from 'react';
+import { CommentCount } from '@hyvor-talk/react';
+
+const App = () => {
+    return (
+        <CommentCount
+            page-id={PAGE_ID}
+            website-id={YOUR_WEBSITE_ID}
+        />
+    );
+};
+```
+
+If you have multiple `<CommentCount>` in the page, use `loading="manual"` prop on each component and call `loadCommentCounts()` function after all components are mounted. This will reduce the number of API calls needed.
+
+```jsx
+import React from 'react';
+import { CommentCount, loadCommentCounts } from '@hyvor-talk/react';
+
+const App = () => {
+
+    useEffect(() => {
+        loadCommentCounts({
+            'website-id': YOUR_WEBSITE_ID,
+        });
+    }, []);
+
+    return (
+        <div>
+            <CommentCount
+                website-id={YOUR_WEBSITE_ID}
+                page-id={PAGE_ID_1}
+                loading="manual"
+            />
+            <CommentCount
+                website-id={YOUR_WEBSITE_ID}
+                page-id={PAGE_ID_2}
+                loading="manual"
+            />
+        </div>
+    );
+};
+```
+
+To call the `loadCommentCounts()` function after all components are mounted, you can use parent element's lifecycle hooks.
+
+* React: [useEffect](https://reactjs.org/docs/hooks-effect.html)
+* Vue: [mounted](https://vuejs.org/api/options-lifecycle.html#mounted)  
+* Svelte: [onMount](https://svelte.dev/docs#run-time-svelte-onmount)
+
+`loadCommentCounts` function accepts the following `website-id`, `mode`, and `language` in the first argument. The second argument is a callback function that will be called after the API call is completed. See the [comment counts](https://talk.hyvor.com/docsv3/comment-counts) documentation for more details. All libraries share the same base API.
