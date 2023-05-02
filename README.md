@@ -4,19 +4,19 @@
 
 Install the library using npm depending on your framework.
 
-React
+**React**
 
 ```bash
 npm install @hyvor-talk/react
 ```
 
-Vue
+**Vue** (Coming Soon)
 
 ```bash
 npm install @hyvor-talk/vue
 ```
 
-Svelte
+**Svelte** (Coming Soon)
 
 ```bash
 npm install @hyvor-talk/svelte
@@ -26,12 +26,12 @@ npm install @hyvor-talk/svelte
 
 All libraries include two components:
 
-- Comments - The comments embed (wrapper around [hyvor-talk-comments](https://talk.hyvor.com/docsv3/install) Web Component)
-- CommentCount - Comment counts widget (wrapper around [hyvor-talk-comment-count](https://talk.hyvor.com/docsv3/install) Web Component)
+- Comments - The comments embed (wrapper around [hyvor-talk-comments](https://talk.hyvor.com/docsv3/install))
+- CommentCount - Comment counts widget (wrapper around [hyvor-talk-comment-count](https://talk.hyvor.com/docsv3/install))
 
 ### Comments
 
-All props in the `<Comments>` component are the same as the base [hyvor-talk-comments](https://talk.hyvor.com/docsv3/install) Web Component.
+All props in the `<Comments>` component are the same as the base [hyvor-talk-comments](https://talk.hyvor.com/docsv3/comment-counts) Web Component.
 
 
 ```jsx
