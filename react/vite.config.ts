@@ -6,9 +6,9 @@ import dts from 'vite-plugin-dts';
 export default defineConfig({
     plugins: [
         react(),
-        dts({
+        /* dts({
             insertTypesEntry: true
-        }),
+        }), */
     ],
     build: {
         lib: {
