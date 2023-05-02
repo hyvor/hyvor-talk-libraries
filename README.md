@@ -7,19 +7,19 @@ Install the library using npm depending on your framework.
 **React**
 
 ```bash
-npm install @hyvor-talk/react
+npm install @hyvor/hyvor-talk-react
 ```
 
 **Vue** (Coming Soon)
 
 ```bash
-npm install @hyvor-talk/vue
+npm install @hyvor/hyvor-talk-vue
 ```
 
 **Svelte** (Coming Soon)
 
 ```bash
-npm install @hyvor-talk/svelte
+npm install @hyvor/hyvor-talk-svelte
 ```
 
 ### Usage
@@ -36,7 +36,7 @@ All props in the `<Comments>` component are the same as the base [hyvor-talk-com
 
 ```jsx
 import React from 'react';
-import { Comments } from '@hyvor-talk/react';
+import { Comments } from '@hyvor/hyvor-talk-react';
 
 const App = () => {
     return (
@@ -48,7 +48,7 @@ const App = () => {
 };
 ```
 
-Other libraries have the same API. For example, `import { Comments } from '@hyvor-talk/vue` for Vue.
+<!-- Vue/svelte libraries have the same API. -->
 
 ### Comment Counts
 
@@ -58,7 +58,7 @@ If you only have one `<CommentCount>` in the page, use the component directly:
 
 ```jsx
 import React from 'react';
-import { CommentCount } from '@hyvor-talk/react';
+import { CommentCount } from '@hyvor/hyvor-talk-react';
 
 const App = () => {
     return (
@@ -74,7 +74,7 @@ If you have multiple `<CommentCount>` in the page, use `loading="manual"` prop o
 
 ```jsx
 import React from 'react';
-import { CommentCount, loadCommentCounts } from '@hyvor-talk/react';
+import { CommentCount, loadCommentCounts } from '@hyvor/hyvor-talk-react';
 
 const App = () => {
 
