@@ -20,12 +20,11 @@ jobs:
           node-version: '16.x'
           registry-url: 'https://registry.npmjs.org'
       - name: Change directory
-        run: cd ${{ github.event.inputs.package }}
-      - name: Install dependencies and build 🔧
-        run: npm ci && npm run build
-      - name: Generate types
-        run: npm run dts
-      - name: Publish package on NPM 📦
-        run: npm publish
+        working-directory: ${{ github.event.inputs.package }}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          npm ci
+          npm run build
+          npm run dts
+          npm publish
