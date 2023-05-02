@@ -10,8 +10,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@sveltejs/vite-plugin-svelte": "^2.1.1",
+    "@tsconfig/svelte": "^4.0.1",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "svelte": "^3.58.0"
   },
   "devDependencies": {
     "@types/react": "^18.0.28",
