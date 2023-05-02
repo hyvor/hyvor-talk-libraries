@@ -1,4 +1,16 @@
-import { Comments, CommentCount } from '../../react/src/index';
+import ReactDOM from 'react-dom/client'
+
+export default function renderReact(root: HTMLElement) {
+    ReactDOM.createRoot(root).render(
+        <App />
+    );
+}
+
+function App() {
+    return <div>This is react</div>
+}
+
+/* import { Comments, CommentCount } from '../../react/src/index';
 
 function App() {
     return <div>
@@ -22,4 +34,4 @@ function App() {
     </div>
 }
 
-export default App
+export default App */
