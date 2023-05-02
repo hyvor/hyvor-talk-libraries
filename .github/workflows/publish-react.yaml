@@ -1,0 +1,31 @@
+name: Publish to NPM
+on:
+  workflow_dispatch:
+    inputs:
+      package:
+        type: choice
+        description: 'Package to publish'
+        required: true
+        options:
+          - react
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16.x'
+          registry-url: 'https://registry.npmjs.org'
+      - name: Change directory
+        run: cd ${{ github.event.inputs.package }}
+      - name: Install dependencies and build 🔧
+        run: npm ci && npm run build
+      - name: Generate types
+        run: npm run dts
+      - name: Publish package on NPM 📦
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
