@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import type { Settings, Translations } from '../../types';
 import { addScriptIfNotAdded } from './helper';
 

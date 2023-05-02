@@ -1,4 +1,4 @@
-import { Comments, CommentCount } from '../../react/src/index';
+import { Comments, CommentCount } from '../../react';
 
 function App() {
     return <div>
