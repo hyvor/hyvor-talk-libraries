@@ -1,4 +1,6 @@
-# hyvor-talk-libraries
+This repository contains the source code of the Hyvor Talk React, Svelte, and Vue libraries. See our [platforms](https://talk.hyvor.com/docs/platforms) documentation for library-specific guidelines on how to install Hyvor Talk on your website.
+
+In addition to the comments embed, these libraries support the [comment count]((https://talk.hyvor.com/docsv3/comment-counts)) widget as well.
 
 ### Installation
 
@@ -10,17 +12,18 @@ Install the library using npm depending on your framework.
 npm install @hyvor/hyvor-talk-react
 ```
 
+**Svelte**
+
+```bash
+npm install @hyvor/hyvor-talk-svelte
+```
+
 **Vue** (Coming Soon)
 
 ```bash
 npm install @hyvor/hyvor-talk-vue
 ```
 
-**Svelte** (Coming Soon)
-
-```bash
-npm install @hyvor/hyvor-talk-svelte
-```
 
 ### Usage
 
