@@ -18,9 +18,14 @@ jobs:
         run: |
           npm ci --prefix react
 
-      - name: Run Tests
+      - name: Set up tests
         working-directory: tests
         run: |
           npm ci
+          npm run dev &
+
+      - name: Run Tests
+        working-directory: tests
+        run: |
           npx playwright install --with-deps
           npx playwright test
