@@ -24,6 +24,11 @@ jobs:
           npm ci
           npm run dev &
 
+      - name: Validate TypeScript
+        working-directory: tests
+        run: |
+          tsc --noEmit
+
       - name: Run Tests
         working-directory: tests
         run: |

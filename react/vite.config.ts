@@ -20,10 +20,5 @@ export default defineConfig({
                 },
             },
         },
-    },
-    resolve: {
-        alias: {
-            '@root': '../',
-        }
     }
 })

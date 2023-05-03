@@ -331,3 +331,33 @@ export type TranslationsKeys =
 ;
 
 export type Translations = Record<TranslationsKeys, string>;
+
+
+
+export interface CommentsProps {
+    "website-id": number,
+    
+    "page-id"?: number | string,
+    "page-url"?: string,
+    "page-title"?: string,
+    "page-language"?: string,
+    "page-author"?: string,
+
+    "sso-user"?: string,
+    "sso-hash"?: string,
+
+    colors?: 'light' | 'dark' | 'os',
+    loading?: 'default' | 'lazy' | 'manual',
+
+    settings?: Partial<Settings>,
+    translations?: Partial<Translations>
+}
+
+export interface CommentCountProps {
+    'page-id': string | number,
+    'website-id'?: number,
+    mode?: 'text' | 'number',
+    language?: string,
+
+    loading?: 'manual'
+}

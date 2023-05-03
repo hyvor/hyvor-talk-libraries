@@ -5,8 +5,9 @@ class Demo {
     constructor(private page: Page) {}
  
     async nav(library: string, page: string) {
-        await this.page.locator(`#${library}-root`).evaluate(el => el.style.display = 'block');
-        await this.page.getByTestId('nav').getByText(page).click();
+        const root = await this.page.locator(`#${library}-root`);
+        await root.evaluate(el => el.style.display = 'block');
+        await root.getByTestId('nav').getByText(page).click();
     }
 
 }
@@ -21,7 +22,7 @@ const baseTest = test.extend<{demo: Demo}>({
 
 const libraries = [
     'react',
-    // 'svelte'
+    'svelte'
 ]
 
 for (const library of libraries) {
