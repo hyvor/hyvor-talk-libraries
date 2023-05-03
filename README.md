@@ -26,12 +26,12 @@ npm install @hyvor/hyvor-talk-svelte
 
 All libraries include two components:
 
-- Comments - The comments embed (wrapper around [hyvor-talk-comments](https://talk.hyvor.com/docsv3/install))
-- CommentCount - Comment counts widget (wrapper around [hyvor-talk-comment-count](https://talk.hyvor.com/docsv3/install))
+- Comments - The comments embed (wrapper around [<hyvor-talk-comments>](https://talk.hyvor.com/docsv3/install))
+- CommentCount - Comment counts widget (wrapper around [<hyvor-talk-comment-count>](https://talk.hyvor.com/docsv3/comment-counts))
 
 ### Comments
 
-All props in the `<Comments>` component are the same as the base [hyvor-talk-comments](https://talk.hyvor.com/docsv3/comment-counts) Web Component.
+All props in the `<Comments>` component are the same as the base [hyvor-talk-comments](https://talk.hyvor.com/docsv3/install) Web Component.
 
 
 ```jsx
