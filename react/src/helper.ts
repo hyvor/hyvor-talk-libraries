@@ -8,5 +8,5 @@ export function addScriptIfNotAdded(src: string) {
     script.src = src;
     script.async = true;
     script.type = 'module';
-    document.body.appendChild(script);
+    document.head.appendChild(script);
 }

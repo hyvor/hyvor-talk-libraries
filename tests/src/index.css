@@ -25,10 +25,6 @@ a:hover {
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
 }
 
 h1 {
@@ -66,4 +62,22 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+
+
+#react-root, #svelte-root {display:none}
+/* #svelte-root {display: none} */
+
+.wrap {
+  display: flex;
+}
+
+.nav {
+  padding: 15px;
+}
+.nav-item {
+  background-color: #fafafa;
+  border-radius: 5px;
+  padding: 5px;
+  margin-bottom: 5px;
 }

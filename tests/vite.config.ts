@@ -8,5 +8,7 @@ export default defineConfig({
         react(),
         svelte(),
     ],
-    server: {hmr: false}
+    server: {
+        port: 3456
+    }
 })

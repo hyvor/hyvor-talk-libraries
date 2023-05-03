@@ -8,7 +8,7 @@ export function loadCommentCounts(
         mode?: 'text' | 'number',
         language?: string,
     } = {},
-    callback: ((count: number, el: Element) => void) | null = null
+    callback: ((count: number | string, el: Element) => string | number) | null = null
 ) {
     customElements.whenDefined('hyvor-talk-comment-count').then(() => {
         (window as any).hyvorTalkCommentCounts.load(options, callback);
