@@ -11,7 +11,7 @@ export default defineConfig({
         fileName: 'hyvor-talk-svelte'
     },
     rollupOptions: {
-        external: ['svelte'],
+        external: ['svelte', 'svelte/internal'],
         output: {
             globals: {
                 svelte: 'Svelte'

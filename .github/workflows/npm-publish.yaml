@@ -8,6 +8,7 @@ on:
         required: true
         options:
           - react
+          - svelte
 jobs:
   build:
     runs-on: ubuntu-latest

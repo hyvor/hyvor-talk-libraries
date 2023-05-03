@@ -1,5 +1,11 @@
 {
   "name": "@hyvor/hyvor-talk-react",
+  "description": "Hyvor Talk React Component",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hyvor/hyvor-talk-libraries"
+  },
   "private": false,
   "version": "0.0.1",
   "type": "module",
