@@ -1,6 +1,6 @@
 <script lang="ts">
     import NavItem from "./Svelte/NavItem.svelte";
-    import {Comments, CommentCount} from '../../svelte/src/index.ts';
+    import {Comments, CommentCount} from '../../svelte/src/lib';
     import { TESTING_WEBSITE_ID } from ".";
     import CommentCountManual from "./Svelte/CommentCountManual.svelte";
 

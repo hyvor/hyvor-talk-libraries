@@ -1,0 +1,25 @@
+{
+  "name": "@hyvor/hyvor-talk-base",
+  "private": false,
+  "version": "0.0.1",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "package": "vite build && tsc"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.2",
+    "vite": "^4.3.2"
+  },
+  "main": "./dist/hyvor-talk-base.umd.cjs",
+  "module": "./dist/hyvor-talk-base.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
+}

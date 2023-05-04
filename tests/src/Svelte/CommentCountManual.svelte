@@ -1,7 +1,7 @@
 <script lang="ts">
     import { onMount } from "svelte";
     import { TESTING_WEBSITE_ID } from "..";
-    import { CommentCount, loadCommentCounts } from "../../../svelte/src";
+    import { CommentCount, loadCommentCounts } from "../../../svelte/src/lib";
 
     onMount(() => {
 
