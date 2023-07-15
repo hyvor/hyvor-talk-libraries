@@ -1,0 +1,31 @@
+{
+  "name": "@hyvor/hyvor-talk-vue",
+  "description": "Hyvor Talk Vue 3 Integration",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hyvor/hyvor-talk-libraries"
+  },
+  "private": false,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc && vite build",
+    "preview": "vite preview",
+    "package": "npm run build"
+  },
+  "dependencies": {
+    "@hyvor/hyvor-talk-base": "^0.0.3",
+    "vue": "^3.3.4"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^4.2.3",
+    "typescript": "^5.0.2",
+    "vite": "^4.4.0",
+    "vue-tsc": "^1.8.3"
+  },
+  "main": "./dist/hyvor-talk-vue.umd.cjs",
+  "module": "./dist/hyvor-talk-vue.js",
+  "types": "./dist/index.d.ts"
+}
