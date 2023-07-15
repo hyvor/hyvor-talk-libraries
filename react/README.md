@@ -1,7 +1,7 @@
 ### Installation
 
 ```bash
-npm install @hyvor/hyvor-talk-svelte
+npm install @hyvor/hyvor-talk-react
 ```
 
 ### Usage
@@ -17,26 +17,30 @@ The library contains two components:
 All props in the `<Comments>` component are the same as the base [hyvor-talk-comments](https://talk.hyvor.com/docs/install) Web Component.
 
 
-```svelte
-<script>
-    import { Comments } from '@hyvor/hyvor-talk-svelte';
-</script>
+```jsx
+import React from 'react';
+import { Comments } from '@hyvor/hyvor-talk-react';
 
-<Comments
-    website-id={YOUR_WEBSITE_ID}
-    page-id={UNIQUE_PAGE_ID}
-/>
+const App = () => {
+    return (
+        <Comments
+            website-id={YOUR_WEBSITE_ID}
+            page-id={UNIQUE_PAGE_ID}
+        />
+    );
+};
 ```
 
-Use the `on:` directive to listen to [events](https://talk.hyvor.com/docs/events) emitted by the component.
+In addition, you can pass a `on` prop to listen to [events](https://talk.hyvor.com/docs/events) emitted by the component.
 
 ```jsx
 <Comments
     website-id={YOUR_WEBSITE_ID}
     page-id={UNIQUE_PAGE_ID}
-
-    on:loaded={() => console.log('Comments loaded')}
-    on:comment:published={() => console.log('Comment published')}
+    on={{
+        'loaded': () => console.log('Comments loaded'),
+        'comment:published': () => console.log('Comment published'),
+    }}
 />
 ```
 
@@ -46,42 +50,48 @@ All props in the `<CommentCount>` component are the same as the base [hyvor-talk
 
 If you only have one `<CommentCount>` on the page, use the component directly:
 
-```svelte
-<script>
-    import { CommentCount } from '@hyvor/hyvor-talk-svelte';
-</script>
+```jsx
+import React from 'react';
+import { CommentCount } from '@hyvor/hyvor-talk-react';
 
-<CommentCount
-    page-id={PAGE_ID}
-    website-id={YOUR_WEBSITE_ID}
-/>
+const App = () => {
+    return (
+        <CommentCount
+            page-id={PAGE_ID}
+            website-id={YOUR_WEBSITE_ID}
+        />
+    );
+};
 ```
 
 
 If you have multiple `<CommentCount>` in the page, use `loading="manual"` prop on each component and call `loadCommentCounts()` function when the components are mounted. This will reduce the number of API calls needed.
 
-```svelte
-<script>
-    import { CommentCount, loadCommentCounts } from '@hyvor/hyvor-talk-svelte';
-    import { onMount } from 'svelte';
+```jsx
+import React from 'react';
+import { CommentCount, loadCommentCounts } from '@hyvor/hyvor-talk-react';
 
-    onMount(() => {
+const App = () => {
+
+    useEffect(() => {
         loadCommentCounts({
             'website-id': YOUR_WEBSITE_ID,
         });
-    });
-</script>
+    }, []);
 
-<div>
-    <CommentCount
-        page-id={PAGE_ID_1}
-        loading="manual"
-    />
-    <CommentCount
-        page-id={PAGE_ID_2}
-        loading="manual"
-    />
-</div>
+    return (
+        <div>
+            <CommentCount
+                page-id={PAGE_ID_1}
+                loading="manual"
+            />
+            <CommentCount
+                page-id={PAGE_ID_2}
+                loading="manual"
+            />
+        </div>
+    );
+};
 ```
 
 
