@@ -1,27 +1,14 @@
 <script lang="ts">
 import { addComments } from '@hyvor/hyvor-talk-base';
 import { h, defineComponent, onMounted, ref } from 'vue';
-import type { CommentsProps } from '@hyvor/hyvor-talk-base';
+import type { CommentsProps, Events } from '@hyvor/hyvor-talk-base';
+import type { KebabToCamelCase, KeysEnum } from './vue-types-util';
 
-/**
- * Vue automatically converts kebab-case props to camelCase.
- * Therefore, we need to use types in camelCase.
- * So, here we are converting kebab-case type keys in the base library to camelCase.
- */
-type KebabToCamelCase<S extends string> = S extends `${infer First}-${infer Rest}`
-  ? `${First}${Capitalize<KebabToCamelCase<Rest>>}`
-  : S;
 type CamelCaseProps = {
   [K in keyof CommentsProps as KebabToCamelCase<K & string>]: CommentsProps[K];
 };
 
-/**
- * Typescript does not have a way to get all keys of a type as an array.
- * So, here we have to repeat all keys to add it to defineComponent's props (otherwise props are not loaded).
- * We are using this trick to achieve type safety, even though it is not the best way.
- * @source https://stackoverflow.com/a/54308812/9059939
- */
-type KeysEnum<T> = { [P in keyof Required<T>]: true };
+
 const allCamelCasePropKeysObject : KeysEnum<CamelCaseProps> = {
     'websiteId': true,
     'pageId': true,
@@ -38,6 +25,19 @@ const allCamelCasePropKeysObject : KeysEnum<CamelCaseProps> = {
 };
 const allCamelCasePropKeys = Object.keys(allCamelCasePropKeysObject) as (keyof CamelCaseProps)[];
 
+const allEventsObject : KeysEnum<Events> = {
+    'loaded': true,
+    'comment:published': true,
+    'comment:edited': true,
+    'comment:deleted': true,
+    'comment:voted': true,
+    'comment:flagged': true,
+    'reaction': true,
+    'rating': true,
+    'auth:login:clicked': true,
+};
+const allEvents = Object.keys(allEventsObject) as (keyof Events)[];
+
 /**
  * Vue does NOT support advanced types for props in defineProps()
  * https://github.com/vuejs/core/issues/8286
@@ -46,7 +46,7 @@ const allCamelCasePropKeys = Object.keys(allCamelCasePropKeysObject) as (keyof C
  * https://vuejs.org/api/general.html#definecomponent
  */
 
-export default defineComponent((props: CamelCaseProps, _) => {
+export default defineComponent((props: CamelCaseProps, { emit }) => {
 
     const wrap = ref<null | HTMLDivElement>(null);
 
@@ -67,7 +67,7 @@ export default defineComponent((props: CamelCaseProps, _) => {
             kebabProps,
             wrap.value!,
             (event, data) => {
-                console.log(event, data);
+                emit(event, data);
             }
         )
 
@@ -76,7 +76,11 @@ export default defineComponent((props: CamelCaseProps, _) => {
     return () => h('div', { ref: wrap });
 
 }, {
-    props: allCamelCasePropKeys
+    props: allCamelCasePropKeys,
+    /**
+     * There is no way to provide type safety to emit payloads (at least I don't know)
+     */
+    emits: allEvents,
 });
 
 </script>
