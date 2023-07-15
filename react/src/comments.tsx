@@ -1,6 +1,10 @@
 import React, { useEffect, useRef } from 'react';
-import type { CommentsProps } from '../../types';
+import type { CommentsProps as CommentsPropsBase } from '../../types';
 import { addComments } from '../../helper';
+
+type CommentsProps = CommentsPropsBase & {
+    on: Record<keyof CommentsPropsBase, boolean>;
+}
 
 export function Comments(props: CommentsProps) {
 

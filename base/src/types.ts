@@ -361,3 +361,77 @@ export interface CommentCountProps {
 
     loading?: 'manual'
 }
+
+
+export interface Events {
+
+    'loaded': null,
+    'comment:published': RealComment,
+    'comment:edited': Comment,
+    'comment:deleted': Comment,
+    'comment:voted': {
+        comment: Comment,
+        vote: 'up' | 'down' | null
+    },
+    'comment:flagged': {
+        comment: Comment
+    },
+    'reaction': {
+        type: 'superb' | 'love' | 'wow' | 'sad' |  'laugh' | 'angry'
+    },
+    'rating': {
+        rating: number,
+        count: number,
+        average: number
+    },
+    'auth:login:clicked': null,
+
+}
+
+export interface BaseComment {
+    id: number,
+    page_id: number,
+    url: string,
+    parent_id: number | null,
+    depth: number,
+    created_at: number,
+}
+export interface HiddenComment extends BaseComment {
+    is_hidden: true,
+}
+export interface RealComment extends BaseComment {
+    is_hidden: false,
+    content: string
+    content_html: string,
+    is_featured: boolean,
+    is_loved: boolean,
+    is_edited: boolean,
+    upvotes: number,
+    downvotes: number,
+    user: User,
+    status: 'published' | 'spam' | 'deleted' | 'pending'
+}
+export type Comment = HiddenComment | RealComment;
+
+
+export interface BaseUser {
+    name: string,
+    username: string,
+    picture_url: string | null,
+    bio: string | null,
+    location: string | null,
+    website_url: string | null,
+    badges: number[],
+}
+
+export interface GuestUser extends BaseUser {
+    id: undefined,
+    type: null
+}
+
+export interface LoggedUser extends BaseUser {
+    id: number,
+    type: 'hyvor' | 'sso'
+}
+
+export type User = GuestUser | LoggedUser;

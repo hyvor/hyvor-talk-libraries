@@ -1,4 +1,4 @@
-import type { CommentCountProps, CommentsProps, Settings, Translations } from './types';
+import type { CommentCountProps, CommentsProps, Events, Settings, Translations } from './types';
 
 export function addScriptIfNotAdded(src: string) {
     if (document.querySelector(`script[src="${src}"]`)) return;
@@ -10,7 +10,23 @@ export function addScriptIfNotAdded(src: string) {
     document.head.appendChild(script);
 }
 
-export function addComments(props: CommentsProps, container: HTMLElement) {
+export const eventNames : (keyof Events)[] = [
+    'loaded',
+    'comment:published',
+    'comment:edited',
+    'comment:deleted',
+    'comment:voted',
+    'comment:flagged',
+    'reaction',
+    'rating',
+    'auth:login:clicked'
+];
+
+export function addComments(
+    props: CommentsProps,
+    container: HTMLElement,
+    onEvent: <T extends keyof Events>(event: T, data: Events[T]) => void
+) {
 
     addScriptIfNotAdded('https://talk.hyvor.com/embed/embed.js');
 
@@ -30,6 +46,12 @@ export function addComments(props: CommentsProps, container: HTMLElement) {
                 }
             }
         }
+
+        eventNames.forEach(eventName => {
+            comments.addEventListener(eventName, (e: any) => {
+                onEvent(eventName, e.detail);
+            });
+        });
 
         container.innerHTML = '';
         container.appendChild(comments);
