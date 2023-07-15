@@ -38,6 +38,6 @@
     "access": "public"
   },
   "dependencies": {
-    "@hyvor/hyvor-talk-base": "^0.0.1"
+    "@hyvor/hyvor-talk-base": "^0.0.3"
   }
 }

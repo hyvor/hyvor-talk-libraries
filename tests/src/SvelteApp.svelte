@@ -3,6 +3,7 @@
     import {Comments, CommentCount} from '../../svelte/src/lib';
     import { TESTING_WEBSITE_ID } from ".";
     import CommentCountManual from "./Svelte/CommentCountManual.svelte";
+    import CommentsEvents from "./Svelte/CommentsEvents.svelte";
 
     let nav : null | string = null;
     
@@ -17,6 +18,7 @@
         <NavItem name="Comments - Settings" bind:nav={nav} />
         <NavItem name="Comments - Translations" bind:nav={nav} />
         <NavItem name="Comments - Multi" bind:nav={nav} />
+        <NavItem name="Comments - Events" bind:nav={nav} />
 
         <NavItem name="CommentCount - Basic" bind:nav={nav} />
         <NavItem name="CommentCount - Number" bind:nav={nav} />
@@ -40,6 +42,7 @@
             <Comments website-id={TESTING_WEBSITE_ID} page-id="2" />
         </div>
     {/if}
+    {#if nav === 'Comments - Events'}<CommentsEvents />{/if}
 
 
     {#if nav === 'CommentCount - Basic'}<CommentCount page-id={location.href} website-id={TESTING_WEBSITE_ID} />{/if}

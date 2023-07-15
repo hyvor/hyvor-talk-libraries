@@ -17,6 +17,7 @@ jobs:
       - name: Set up libraries
         run: |
           npm ci --prefix react
+          npm ci --prefix svelte
 
       - name: Set up tests
         working-directory: tests

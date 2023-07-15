@@ -19,6 +19,7 @@ function App() {
             <NavItem name="Comments - Settings" />
             <NavItem name="Comments - Translations" />
             <NavItem name="Comments - Multi" />
+            <NavItem name="Comments - Events" />
 
             <NavItem name="CommentCount - Basic" />
             <NavItem name="CommentCount - Number" />
@@ -36,6 +37,7 @@ function App() {
             {nav === 'Comments - Settings' && <CommentsWithRatings />}
             {nav === 'Comments - Translations' && <CommentsWithTranslations /> }
             {nav === 'Comments - Multi' && <MultiComments /> }
+            {nav === 'Comments - Events' && <CommentsEvents />}
 
             {nav === 'CommentCount - Basic' && <BasicCommentCount />}
             {nav === 'CommentCount - Number' && <NumberCommentCount />}
@@ -76,6 +78,16 @@ function MultiComments() {
     return <div>
         <Comments website-id={TESTING_WEBSITE_ID} page-id="1" />
         <Comments website-id={TESTING_WEBSITE_ID} page-id="2" />
+    </div>
+}
+
+function CommentsEvents() {
+    const [hasLoaded, setHasLoaded] = useState(false);
+    return <div>
+        <Comments website-id={TESTING_WEBSITE_ID} on={{
+            loaded: () => setHasLoaded(true)
+        }} />
+        {hasLoaded && <div>Loaded!</div>}
     </div>
 }
 

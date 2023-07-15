@@ -1,3 +1,3 @@
 export { Comments } from './comments';
 export { CommentCount } from './comment-counts';
-export { loadCommentCounts } from '../../helper';
+export { loadCommentCounts } from '@hyvor/hyvor-talk-base';

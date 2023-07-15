@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import { addCommentCounts } from "../../helper";
-import type { CommentCountProps } from "../../types";
+import { addCommentCounts } from "@hyvor/hyvor-talk-base";
+import type { CommentCountProps } from "@hyvor/hyvor-talk-base";
 
 export function CommentCount(props: CommentCountProps) {
 

@@ -73,6 +73,13 @@ for (const library of libraries) {
         await expect(page.locator('script[src="https://talk.hyvor.com/embed/embed.js"]')).toHaveCount(1);
     });
 
+    baseTest(`${library} - comments events`, async ({ demo, page }) => {
+        await demo.nav(library, 'Comments - Events');
+
+        await expect(page.getByText('0 Comments')).toBeVisible();
+        await expect(page.getByText('Loaded!')).toBeVisible();
+    });
+
 
     baseTest(`${library} - comment counts`, async ({ demo, page }) => {
         await demo.nav(library, 'CommentCount - Basic');
