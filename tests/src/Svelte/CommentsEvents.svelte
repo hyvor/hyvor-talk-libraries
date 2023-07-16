@@ -1,6 +1,6 @@
 <script lang="ts">
     import { TESTING_WEBSITE_ID } from "..";
-    import {Comments} from '../../../svelte/src/lib';
+    import {Comments} from '@hyvor/hyvor-talk-svelte';
 
     let loaded = false;
 </script>

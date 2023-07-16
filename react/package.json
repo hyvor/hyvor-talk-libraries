@@ -15,7 +15,8 @@
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "dts": "tsc --project tsconfig.dts.json",
-    "package": "npm run build && npm run dts"
+    "package": "npm run build && npm run dts",
+    "ts-validate": "tsc --project tsconfig.dts.json --noEmit --emitDeclarationOnly false"
   },
   "peerDependencies": {
     "react": "^16.0.0 || ^17.0.0 || ^18.0.0"

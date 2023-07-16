@@ -18,8 +18,15 @@ jobs:
         run: |
           npm ci --prefix react
           npm ci --prefix svelte
+          npm ci --prefix vue
 
-      - name: Set up tests
+      - name: Package Libraries
+        run: |
+          npm run package --prefix react
+          npm run package --prefix svelte
+          npm run package --prefix vue
+
+      - name: Run tests app
         working-directory: tests
         run: |
           npm ci
@@ -30,3 +37,22 @@ jobs:
         run: |
           npx playwright install --with-deps
           npx playwright test
+
+  typescript-validation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 18
+      - name: Set up libraries
+        run: |
+          npm ci --prefix react
+          npm ci --prefix svelte
+          npm ci --prefix vue
+
+      - name: Validate Typescript
+        run: |
+          npm run ts-validate --prefix react
+          npm run ts-validate --prefix svelte
+          npm run ts-validate --prefix vue

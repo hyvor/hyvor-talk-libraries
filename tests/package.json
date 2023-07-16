@@ -17,6 +17,8 @@
     "react-dom": "^18.2.0",
     "svelte": "^3.58.0",
     "vue": "^3.3.4",
+    "@hyvor/hyvor-talk-react": "../react",
+    "@hyvor/hyvor-talk-svelte": "../svelte",
     "@hyvor/hyvor-talk-vue": "../vue"
   },
   "devDependencies": {

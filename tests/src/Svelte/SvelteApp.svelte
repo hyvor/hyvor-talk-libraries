@@ -1,9 +1,9 @@
 <script lang="ts">
-    import NavItem from "./Svelte/NavItem.svelte";
-    import {Comments, CommentCount} from '../../svelte/src/lib';
-    import { TESTING_WEBSITE_ID } from ".";
-    import CommentCountManual from "./Svelte/CommentCountManual.svelte";
-    import CommentsEvents from "./Svelte/CommentsEvents.svelte";
+    import NavItem from "./NavItem.svelte";
+    import {Comments, CommentCount} from '@hyvor/hyvor-talk-svelte';
+    import { TESTING_WEBSITE_ID } from "..";
+    import CommentCountManual from "./CommentCountManual.svelte";
+    import CommentsEvents from "./CommentsEvents.svelte";
 
     let nav : null | string = null;
     

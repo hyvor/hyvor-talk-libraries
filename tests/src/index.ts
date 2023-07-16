@@ -1,7 +1,7 @@
 import { createApp } from 'vue';
 import './index.css'
-import renderReact from './react';
-import SvelteApp from './SvelteApp.svelte';
+import renderReact from './React/react';
+import SvelteApp from './Svelte/SvelteApp.svelte';
 import VueApp from './Vue/VueApp.vue';
 
 export const TESTING_WEBSITE_ID = 8856;

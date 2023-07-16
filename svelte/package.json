@@ -15,7 +15,8 @@
     "preview": "vite preview",
     "check": "svelte-check --tsconfig ./tsconfig.json",
     "dts": "tsc --project tsconfig.dts.json",
-    "package": "svelte-package"
+    "package": "svelte-package",
+    "ts-validate": "tsc --noEmit --emitDeclarationOnly false"
   },
   "peerDependencies": {
     "svelte": "^3.0.0"
