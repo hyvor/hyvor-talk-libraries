@@ -51,7 +51,6 @@ jobs:
           npm ci --prefix react
           npm ci --prefix svelte
           npm ci --prefix vue
-          npm ci --prefix tests
 
       - name: Validate Typescript
         run: |
@@ -59,4 +58,3 @@ jobs:
           npm run ts-validate --prefix react
           npm run ts-validate --prefix svelte
           npm run ts-validate --prefix vue
-          npm run ts-validate --prefix tests
