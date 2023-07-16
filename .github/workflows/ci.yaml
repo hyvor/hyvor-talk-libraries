@@ -6,7 +6,7 @@ on:
     branches: [main]
 jobs:
   test:
-    timeout-minutes: 60
+    timeout-minutes: 10
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -47,12 +47,16 @@ jobs:
           node-version: 18
       - name: Set up libraries
         run: |
+          npm ci --prefix base
           npm ci --prefix react
           npm ci --prefix svelte
           npm ci --prefix vue
+          npm ci --prefix tests
 
       - name: Validate Typescript
         run: |
+          npm run ts-validate --prefix base
           npm run ts-validate --prefix react
           npm run ts-validate --prefix svelte
           npm run ts-validate --prefix vue
+          npm run ts-validate --prefix tests

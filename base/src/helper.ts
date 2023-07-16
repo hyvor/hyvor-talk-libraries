@@ -10,17 +10,19 @@ export function addScriptIfNotAdded(src: string) {
     document.head.appendChild(script);
 }
 
-export const eventNames : (keyof Events)[] = [
-    'loaded',
-    'comment:published',
-    'comment:edited',
-    'comment:deleted',
-    'comment:voted',
-    'comment:flagged',
-    'reaction',
-    'rating',
-    'auth:login:clicked'
-];
+export type KeysEnum<T> = { [P in keyof Required<T>]: any };
+const eventNamesObject : KeysEnum<Events> = {
+    'loaded': true,
+    'comment:published': true,
+    'comment:edited': true,
+    'comment:deleted': true,
+    'comment:voted': true,
+    'comment:flagged': true,
+    'reaction': true,
+    'rating': true,
+    'auth:login:clicked': true
+};
+export const eventNames = Object.keys(eventNamesObject) as (keyof Events)[];
 
 export function addComments(
     props: CommentsProps,

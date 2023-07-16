@@ -1,7 +1,7 @@
 <script lang="ts">
-import { addComments } from '@hyvor/hyvor-talk-base';
+import { addComments, eventNames } from '@hyvor/hyvor-talk-base';
 import { h, defineComponent, onMounted, ref } from 'vue';
-import type { CommentsProps, Events } from '@hyvor/hyvor-talk-base';
+import type { CommentsProps } from '@hyvor/hyvor-talk-base';
 import type { KebabToCamelCase, KeysEnum } from './vue-types-util';
 
 type CamelCaseProps = {
@@ -25,18 +25,7 @@ const allCamelCasePropKeysObject : KeysEnum<CamelCaseProps> = {
 };
 const allCamelCasePropKeys = Object.keys(allCamelCasePropKeysObject) as (keyof CamelCaseProps)[];
 
-const allEventsObject : KeysEnum<Events> = {
-    'loaded': true,
-    'comment:published': true,
-    'comment:edited': true,
-    'comment:deleted': true,
-    'comment:voted': true,
-    'comment:flagged': true,
-    'reaction': true,
-    'rating': true,
-    'auth:login:clicked': true,
-};
-const allEvents = Object.keys(allEventsObject) as (keyof Events)[];
+const allEvents = eventNames;
 
 /**
  * Vue does NOT support advanced types for props in defineProps()

@@ -7,6 +7,7 @@ on:
         description: 'Package to publish'
         required: true
         options:
+          - base
           - react
           - svelte
           - vue
