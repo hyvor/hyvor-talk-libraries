@@ -9,6 +9,7 @@ on:
         options:
           - react
           - svelte
+          - vue
 jobs:
   build:
     runs-on: ubuntu-latest
