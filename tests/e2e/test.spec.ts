@@ -22,7 +22,8 @@ const baseTest = test.extend<{demo: Demo}>({
 
 const libraries = [
     'react',
-    'svelte'
+    'svelte',
+    'vue'
 ]
 
 for (const library of libraries) {
