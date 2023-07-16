@@ -12,9 +12,12 @@
   "dependencies": {
     "@sveltejs/vite-plugin-svelte": "^2.1.1",
     "@tsconfig/svelte": "^4.0.1",
+    "@vitejs/plugin-vue": "^4.2.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "svelte": "^3.58.0"
+    "svelte": "^3.58.0",
+    "vue": "^3.3.4",
+    "@hyvor/hyvor-talk-vue": "../vue"
   },
   "devDependencies": {
     "@playwright/test": "^1.33.0",

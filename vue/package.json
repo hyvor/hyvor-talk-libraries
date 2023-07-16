@@ -13,17 +13,19 @@
     "dev": "vite",
     "build": "vue-tsc && vite build",
     "preview": "vite preview",
-    "package": "npm run build"
+    "package": "npm run build && vue-tsc"
   },
   "dependencies": {
-    "@hyvor/hyvor-talk-base": "^0.0.3",
-    "vue": "^3.3.4"
+    "@hyvor/hyvor-talk-base": "^0.0.3"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.2.3",
     "typescript": "^5.0.2",
     "vite": "^4.4.0",
     "vue-tsc": "^1.8.3"
+  },
+  "peerDependencies": {
+    "vue": "^3.0.0"
   },
   "main": "./dist/hyvor-talk-vue.umd.cjs",
   "module": "./dist/hyvor-talk-vue.js",

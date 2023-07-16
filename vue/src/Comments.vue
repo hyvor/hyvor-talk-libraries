@@ -63,13 +63,19 @@ export default defineComponent((props: CamelCaseProps, { emit }) => {
             kebabProps[kebabKey] = props[key as keyof CamelCaseProps] as CommentsProps[keyof CommentsProps];
         }
 
-        addComments(
-            kebabProps,
-            wrap.value!,
-            (event, data) => {
-                emit(event, data);
-            }
-        )
+        if (wrap.value) {
+
+            addComments(
+                kebabProps,
+                wrap.value!,
+                (event, data) => {
+                    emit(event, data);
+                }
+            )
+
+        } else {
+            console.log('oopzi', wrap);
+        }
 
     });
 

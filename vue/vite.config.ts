@@ -9,6 +9,9 @@ export default defineConfig({
             entry: 'src/index.ts',
             name: '@hyvor/hyvor-talk-vue',
             fileName: 'hyvor-talk-vue'
+        },
+        rollupOptions: {
+            external: ['vue'],
         }
     }
 })
