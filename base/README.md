@@ -21,20 +21,31 @@ addComments(
 );
 ```
 
-### `addCommentCount(props)`
+### `addCommentCounts(props)`
 
-Adds `<hyvor-talk-comment-count>` ([docs](https://talk.hyvor.com/docs/comment-counts)) to the given container.
+Adds the script that registers the `<hyvor-talk-comment-count>` custom element to the page. Note that unlike `addComments`, this function does not add the element to the page. You need to add `<hyvor-talk-comment-count>` elements to the page manually, and then call this function to load the comment counts.
 
 ```ts
-import { addCommentCount } from '@hyvor/hyvor-talk-base';
+import { addCommentCounts } from '@hyvor/hyvor-talk-base';
 
-addCommentCount(
+addCommentCounts(
     {
         'website-id': 1,
         'page-id': 'unique-page-id',
     }
 );
 ```
+
+Example from our React package:
+
+```tsx
+export function CommentCount(props: CommentCountProps) {
+    useEffect(() => addCommentCounts(props), []);
+    return <hyvor-talk-comment-count {...props} />
+}
+```
+
+> `addCommentCounts` function automatically calls `loadCommentCounts` if `loading="manual"` is not set.
 
 ### `loadCommentCounts(props)`
 
