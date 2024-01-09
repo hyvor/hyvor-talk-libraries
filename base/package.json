@@ -1,7 +1,7 @@
 {
   "name": "@hyvor/hyvor-talk-base",
   "private": false,
-  "version": "0.0.4",
+  "version": "0.0.5",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -16,6 +16,12 @@
   },
   "main": "./dist/hyvor-talk-base.umd.cjs",
   "module": "./dist/hyvor-talk-base.js",
+  "exports": {
+    ".": {
+      "import": "./dist/hyvor-talk-base.js",
+      "require": "./dist/hyvor-talk-base.umd.cjs"
+    }
+  },
   "types": "./dist/index.d.ts",
   "files": [
     "dist"
