@@ -20,7 +20,8 @@ const eventNamesObject : KeysEnum<Events> = {
     'comment:flagged': true,
     'reaction': true,
     'rating': true,
-    'auth:login:clicked': true
+    'auth:login:clicked': true,
+    'profile:clicked': true,
 };
 export const eventNames = Object.keys(eventNamesObject) as (keyof Events)[];
 
