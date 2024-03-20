@@ -365,26 +365,75 @@ export interface CommentCountProps {
 
 export interface Events {
 
+    /**
+     * Comments section is fully loaded
+     * This is triggered after the initial `/init` API call is completed
+     */
     'loaded': null,
+
+    /**
+     * A comment is published.
+     * Spam detection and rules are run asynchronously after this event. 
+     * Therefore, the status of the comment may change in a few seconds.
+     */
     'comment:published': RealComment,
+
+    /**
+     * The comment body was edited.
+     */
     'comment:edited': Comment,
+
+    /**
+     * A comment was deleted by the user.
+     * (Not triggered when a moderator deletes a comment in the embed)
+     */
     'comment:deleted': Comment,
+
+    /**
+     * A user voted/unvoted to a comment
+     * vote: null means the current vote was removed
+     */
     'comment:voted': {
         comment: Comment,
         vote: 'up' | 'down' | null
     },
+
+    /**
+     * A user flagged a comment
+     * The comment will be hidden from the public view until a moderator reviews it
+     */
     'comment:flagged': {
         comment: Comment
     },
+
+    /**
+     * A user reacted to a comment
+     */
     'reaction': {
         type: 'superb' | 'love' | 'wow' | 'sad' |  'laugh' | 'angry'
     },
+
+    /**
+     * A user rated (star ratings) the page
+     */
     'rating': {
         rating: number,
         count: number,
         average: number
     },
+
+    /**
+     * The login button was clicked
+     * You may use this 
+     */
     'auth:login:clicked': null,
+
+    /**
+     * A user clicked on the profile picture or the name of another user
+     * This usually triggers the user profile popup
+     * You may use this to show a custom user profile (ex: using location.href)
+     */
+    'profile:clicked': LoggedUser,
 
 }
 

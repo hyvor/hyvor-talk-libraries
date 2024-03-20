@@ -7,7 +7,7 @@
     "url": "https://github.com/hyvor/hyvor-talk-libraries"
   },
   "private": false,
-  "version": "0.0.2",
+  "version": "0.0.3",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -17,7 +17,7 @@
     "ts-validate": "vue-tsc --noEmit --emitDeclarationOnly false"
   },
   "dependencies": {
-    "@hyvor/hyvor-talk-base": "^0.0.3"
+    "@hyvor/hyvor-talk-base": "^0.0.6"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.2.3",
