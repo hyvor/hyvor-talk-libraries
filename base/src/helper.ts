@@ -31,7 +31,7 @@ export function addComments(
     onEvent: <T extends keyof Events>(event: T, data: Events[T]) => void
 ) {
 
-    addScriptIfNotAdded('https://talk.hyvor.com/embed/embed.js?p=1');
+    addScriptIfNotAdded('https://talk.hyvor.com/embed/embed.js?p=2');
 
     customElements.whenDefined('hyvor-talk-comments').then(() => {
 
@@ -78,7 +78,7 @@ export function loadCommentCounts(
 
 export function addCommentCounts(props: CommentCountProps) {
 
-    addScriptIfNotAdded('https://talk.hyvor.com/embed/comment-counts.js?p=1');
+    addScriptIfNotAdded('https://talk.hyvor.com/embed/comment-counts.js?p=2');
 
     if (props.loading !== 'manual') {
         loadCommentCounts();
