@@ -1,6 +1,124 @@
-This library provides types and helper functions for [Hyvor Talk](https://talk.hyvor.com).
+This library provides types and helper functions for creating [Hyvor Talk](https://talk.hyvor.com) Web Components.
+
+-   [Comments](#comments)
+-   [Comment Counts](#comment-counts)
+-   [Newsletters](#newsletters)
+-   [Memberships](#memberships)
+
+## Installation
+
+```bash
+npm install @hyvor/hyvor-talk-base
+```
 
 ## Comments
+
+Add comments embed ([&lt;hyvor-talk-comments&gt;](https://talk.hyvor.com/docs/comments)):
+
+```ts
+import { Comments } from "@hyvor/hyvor-talk-base";
+
+Comments.comments(
+    // The same attributes as the base web component
+    // See https://talk.hyvor.com/docs/comments#attributes
+    {
+        "website-id": 1,
+        "page-id": "unique-page-id",
+    },
+    // The container element
+    document.getElementById("comments-container"),
+    // Callback for events
+    // See https://talk.hyvor.com/docs/comments#events
+    (event, data) => {
+        console.log(event, data);
+    }
+);
+```
+
+## Comment Counts
+
+Add comment count elements ([&lt;hyvor-talk-comment-count&gt;](https://talk.hyvor.com/docs/comment-counts)):
+
+```ts
+import { CommentCounts } from "@hyvor/hyvor-talk-base";
+
+// first, add the elements
+CommentCounts.commentCount(
+    {
+        "page-id": "unique-page-id",
+    },
+    wrap1
+);
+
+CommentCounts.commentCount(
+    {
+        "page-id": "unique-page-id",
+    },
+    wrap2
+);
+
+// then, load the counts
+CommentCounts.load({
+    "website-id": 1,
+});
+```
+
+## Newsletters
+
+Add newsletter form ([&lt;hyvor-talk-newsletter&gt;](https://talk.hyvor.com/docs/newsletter)):
+
+```ts
+import { Newsletters } from "@hyvor/hyvor-talk-base";
+
+Newsletters.form(
+    // The same attributes as the <hyvor-talk-newsletter> component
+    // See https://talk.hyvor.com/docs/newsletters#form-properties
+    {
+        "website-id": 1,
+        title: "Subscribe to our newsletter",
+    },
+    wrap // The container element
+);
+```
+
+## Memberships
+
+Add the memberships embed ([&lt;hyvor-talk-memberships&gt;](https://talk.hyvor.com/docs/memberships)):
+
+```ts
+import { Memberships } from "@hyvor/hyvor-talk-base";
+
+Memberships.memberships(
+    // The same attributes as the <hyvor-talk-memberships> component
+    // See https://talk.hyvor.com/docs/memberships#component-attributes
+    {
+        "website-id": 1,
+        "sso-user": "{}",
+        "sso-hash": "hash",
+    }
+);
+```
+
+Once you have added the memberships embed, you can add gated content ([&lt;hyvor-talk-gated-content&gt;](https://talk.hyvor.com/docs/memberships#gated-content)):
+
+```ts
+import { Memberships } from "@hyvor/hyvor-talk-base";
+
+Memberships.gatedContent(
+    // The same attributes as the <hyvor-talk-gated-content> component
+    // See https://talk.hyvor.com/docs/gated-content#component-attributes
+    {
+        key: "content-key",
+    },
+    wrap // The container element
+);
+```
+
+---
+
+## Legacy Functions
+
+The following functions are only available for legacy purposes. We recommend using the functions above for new projects.
 
 ### `addComments(props, container, onEvent)`
 
@@ -34,7 +152,7 @@ addCommentCounts({
 });
 ```
 
-Example from our React package:
+Example usage with React:
 
 ```tsx
 export function CommentCount(props: CommentCountProps) {
