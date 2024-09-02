@@ -6,16 +6,15 @@ npm install @hyvor/hyvor-talk-svelte
 
 ### Usage
 
-The library contains two components:
+The following components are available:
 
-- `<Comments>` - The comments embed (wrapper around [`<hyvor-talk-comments>`](https://talk.hyvor.com/docs/install))
-- `<CommentCount>` - Comment counts widget (wrapper around [`<hyvor-talk-comment-count>`](https://talk.hyvor.com/docs/comment-counts))
-
+-   **`<Comments>`** - wraps [`<hyvor-talk-comments>`](https://talk.hyvor.com/docs/comments)
+-   **`<CommentCount>`** - wraps [`<hyvor-talk-comment-count>`](https://talk.hyvor.com/docs/comment-counts)
+-   **`<NewsletterForm>`** - wraps [`<hyvor-talk-newsletter>`](https://talk.hyvor.com/docs/newsletters)
 
 ### Comments
 
-All props in the `<Comments>` component are the same as the base [hyvor-talk-comments](https://talk.hyvor.com/docs/install) Web Component.
-
+Use the `<Comments>` component to add comments to your webpage. The props are the same as the attributes of [hyvor-talk-comments](https://talk.hyvor.com/docs/comments#attributes).
 
 ```svelte
 <script>
@@ -28,15 +27,41 @@ All props in the `<Comments>` component are the same as the base [hyvor-talk-com
 />
 ```
 
-Use the `on:` directive to listen to [events](https://talk.hyvor.com/docs/events) emitted by the component.
+#### Listening to Events
 
-```jsx
+Use the `on:` directive to listen to [events](https://talk.hyvor.com/docs/comments#events) emitted by the component.
+
+```svelte
 <Comments
     website-id={YOUR_WEBSITE_ID}
     page-id={UNIQUE_PAGE_ID}
 
     on:loaded={() => console.log('Comments loaded')}
     on:comment:published={() => console.log('Comment published')}
+/>
+```
+
+#### Accessing the Web Component Instance
+
+Bind the `element` prop to a variable to access the underlying Web Component instance. This is useful to call [API methods](https://talk.hyvor.com/docs/comments#api).
+
+```svelte
+<script>
+    import { Comments } from '@hyvor/hyvor-talk-svelte';
+    import { onMount } from 'svelte';
+
+    let element;
+
+    function onLoad() {
+        console.log(element.api.page());
+    }
+</script>
+
+<Comments
+    website-id={YOUR_WEBSITE_ID}
+    page-id={UNIQUE_PAGE_ID}
+    bind:element
+    on:loaded={onLoad}
 />
 ```
 
@@ -56,7 +81,6 @@ If you only have one `<CommentCount>` on the page, use the component directly:
     website-id={YOUR_WEBSITE_ID}
 />
 ```
-
 
 If you have multiple `<CommentCount>` in the page, use `loading="manual"` prop on each component and call `loadCommentCounts()` function when the components are mounted. This will reduce the number of API calls needed.
 
@@ -83,7 +107,6 @@ If you have multiple `<CommentCount>` in the page, use `loading="manual"` prop o
     />
 </div>
 ```
-
 
 `loadCommentCounts` function has the following signature:
 
