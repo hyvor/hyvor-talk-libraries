@@ -1,13 +1,56 @@
-declare global {
-    namespace JSX {
-        interface IntrinsicElements {
-            'hyvor-talk-comments': any,
-            'hyvor-talk-comment-count': any
-        }
+import { addScriptIfNotAdded } from "./helper";
+
+export class Comments {
+
+    static comments(
+        props: CommentsProps,
+        container: HTMLElement,
+        onEvent: <T extends keyof CommentsEvents>(event: T, data: CommentsEvents[T]) => void
+    ) {
+    
+        addScriptIfNotAdded('https://talk.hyvor.com/embed/embed.js');
+    
+        customElements.whenDefined('hyvor-talk-comments').then(() => {
+    
+            const comments = document.createElement('hyvor-talk-comments') as HTMLElement & {
+                settings: Partial<CommentsSettings>,
+                translations: Partial<Translations>
+            };
+    
+            for (const [key, value] of Object.entries(props)) {
+                if (value !== undefined) {
+                    if (key === 'settings' || key === 'translations') {
+                        comments[key] = value;
+                    } else {
+                        comments.setAttribute(key, value);
+                    }
+                }
+            }
+    
+            eventNames.forEach(eventName => {
+                comments.addEventListener(eventName, (e: any) => {
+                    onEvent(eventName, e.detail);
+                });
+            });
+    
+            container.innerHTML = '';
+            container.appendChild(comments);
+    
+        });
+    
     }
+
+    commentCount() {
+
+    }
+
+    commentCountLoad() {
+        // 
+    }
+
 }
 
-export interface Settings {
+export interface CommentsSettings {
 
     // Name of the website
     name: string,
@@ -196,7 +239,7 @@ interface Palette {
 }
 
 
-export type TranslationsKeys =
+export type CommentsTranslationsKeys =
     'reactions_text' |
     'ratings_text' |
     'ratings_1' |
@@ -330,7 +373,7 @@ export type TranslationsKeys =
     'default_error'
 ;
 
-export type Translations = Record<TranslationsKeys, string>;
+export type Translations = Record<CommentsTranslationsKeys, string>;
 
 
 
@@ -349,7 +392,7 @@ export interface CommentsProps {
     colors?: 'light' | 'dark' | 'os',
     loading?: 'default' | 'lazy' | 'manual',
 
-    settings?: Partial<Settings>,
+    settings?: Partial<CommentsSettings>,
     translations?: Partial<Translations>
 }
 
@@ -363,7 +406,10 @@ export interface CommentCountProps {
 }
 
 
-export interface Events {
+// Events ========================================
+
+
+export interface CommentsEvents {
 
     /**
      * Comments section is fully loaded
@@ -376,7 +422,7 @@ export interface Events {
      * Spam detection and rules are run asynchronously after this event. 
      * Therefore, the status of the comment may change in a few seconds.
      */
-    'comment:published': RealComment,
+    'comment:published': CommentsApiRealComment,
 
     /**
      * The comment body was edited.
@@ -433,11 +479,13 @@ export interface Events {
      * This usually triggers the user profile popup
      * You may use this to show a custom user profile (ex: using location.href)
      */
-    'profile:clicked': LoggedUser,
+    'profile:clicked': CommentsApiLoggedUser,
 
 }
 
-export interface BaseComment {
+// API Types ========================================
+
+export interface CommentsApiBaseComment {
     id: number,
     page_id: number,
     url: string,
@@ -445,10 +493,10 @@ export interface BaseComment {
     depth: number,
     created_at: number,
 }
-export interface HiddenComment extends BaseComment {
+export interface CommentsApiHiddenComment extends CommentsApiBaseComment {
     is_hidden: true,
 }
-export interface RealComment extends BaseComment {
+export interface CommentsApiRealComment extends CommentsApiBaseComment {
     is_hidden: false,
     content: string
     content_html: string,
@@ -460,10 +508,10 @@ export interface RealComment extends BaseComment {
     user: User,
     status: 'published' | 'spam' | 'deleted' | 'pending'
 }
-export type Comment = HiddenComment | RealComment;
+export type Comment = CommentsApiHiddenComment | CommentsApiRealComment;
 
 
-export interface BaseUser {
+export interface CommentsApiBaseUser {
     name: string,
     username: string,
     picture_url: string | null,
@@ -473,14 +521,16 @@ export interface BaseUser {
     badges: number[],
 }
 
-export interface GuestUser extends BaseUser {
+export interface CommentsApiGuestUser extends CommentsApiBaseUser {
     id: undefined,
     type: null
 }
 
-export interface LoggedUser extends BaseUser {
+export interface CommentsApiLoggedUser extends CommentsApiBaseUser {
     id: number,
     type: 'hyvor' | 'sso'
 }
 
-export type User = GuestUser | LoggedUser;
+export type User = CommentsApiGuestUser | CommentsApiLoggedUser;
+
+
