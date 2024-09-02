@@ -1,11 +1,13 @@
-import type { CommentCountProps, CommentsProps, CommentsEvents, CommentsSettings, Translations } from './comments';
+import type { CommentCountProps, CommentsProps, CommentsEvents, CommentsSettings, CommentsTranslationsKeys } from './comments';
 import { addScriptIfNotAdded } from './helper';
+
+export type Translations = Record<CommentsTranslationsKeys, string>;
 
 // ======== OLD COMMENTS CODE =========
 // This code is deprecated and should not be used in new projects.
 
 export type KeysEnum<T> = { [P in keyof Required<T>]: any };
-const eventNamesObject : KeysEnum<Events> = {
+const eventNamesObject : KeysEnum<CommentsEvents> = {
     'loaded': true,
     'comment:published': true,
     'comment:edited': true,
