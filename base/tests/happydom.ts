@@ -1,11 +1,7 @@
 import { GlobalRegistrator } from "@happy-dom/global-registrator";
 import { beforeEach } from "bun:test";
 
-GlobalRegistrator.register({
-    settings: {
-        disableJavaScriptEvaluation: true,
-    }
-});
+GlobalRegistrator.register();
 
 beforeEach(() => {
     document.body.innerHTML = '';

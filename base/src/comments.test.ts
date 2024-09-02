@@ -58,17 +58,17 @@ test('creates an element with instance', () => {
 
     Comments.comments({
         "website-id": 123,
-        instance: 'https://talk.hyvor.example.org',
+        instance: 'https://example.org',
     }, document.body);
 
     const el = document.querySelector('hyvor-talk-comments')!;
     expect(el).not.toBeNull();
     expect(el.getAttribute('website-id')).toBe('123');
-    expect(el.getAttribute('instance')).toBe('https://talk.hyvor.example.org');
+    expect(el.getAttribute('instance')).toBe('https://example.org');
 
     const script = document.querySelectorAll('script');
     expect(script.length).toBe(1);
-    expect(script[0].getAttribute('src')).toBe('https://talk.hyvor.example.org/embed/embed.js');
+    expect(script[0].getAttribute('src')).toBe('https://example.org/embed/embed.js');
 
 });
 
