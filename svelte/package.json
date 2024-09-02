@@ -22,13 +22,13 @@
     "svelte": "^3.0.0 || ^4.0.0"
   },
   "devDependencies": {
+    "@sveltejs/package": "^2.0.2",
     "@sveltejs/vite-plugin-svelte": "^2.0.3",
     "@tsconfig/svelte": "^4.0.1",
-    "svelte-check": "^2.10.3",
+    "svelte-check": "^4.0.0",
     "tslib": "^2.5.0",
     "typescript": "^5.0.2",
-    "vite": "^4.3.2",
-    "@sveltejs/package": "^2.0.2"
+    "vite": "^4.3.2"
   },
   "exports": {
     ".": {
