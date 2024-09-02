@@ -1,5 +1,5 @@
 import { test, expect } from 'bun:test';
-import { Comments }  from '../src/index';
+import { Comments, COMMENTS_EVENTS }  from './index';
 
 test('creates an element with all props', () => {
 
@@ -89,5 +89,26 @@ test('old translations property is changed to t- attributes', () => {
     expect(el.getAttribute('t-login')).toBe('Log in');
     expect(el.getAttribute('t-guest-email')).toBe('Email');
     expect(el.getAttribute('t-guest-name')).toBe('Name');
+
+});
+
+test('listens to events', () => {
+
+    const events = COMMENTS_EVENTS;
+    const calledEvents : string[] = [];
+
+    Comments.comments({
+        "website-id": 123,
+    }, document.body, (eventName) => {
+        calledEvents.push(eventName);
+    });
+
+    const el = document.querySelector('hyvor-talk-comments')!;
+
+    events.forEach(eventName => {
+        el.dispatchEvent(new CustomEvent(eventName));
+    });
+
+    expect(calledEvents).toEqual(events);
 
 });

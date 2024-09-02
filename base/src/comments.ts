@@ -35,7 +35,7 @@ export type CommentsCustomElement = HTMLElement & {
     api: {},
 };
 
-const COMMENTS_EVENTS : (keyof CommentsEvents)[] = [
+export const COMMENTS_EVENTS : (keyof CommentsEvents)[] = [
     'loaded',
     'comment:published',
     'comment:edited',
@@ -405,14 +405,7 @@ export type CommentsTranslationsKeys =
     'default-error'
 ;
 
-export interface CommentCountProps {
-    'page-id': string | number,
-    'website-id'?: number,
-    mode?: 'text' | 'number',
-    language?: string,
 
-    loading?: 'manual'
-}
 
 
 // Events ========================================

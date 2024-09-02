@@ -115,7 +115,7 @@ export interface MembershipsApiEvents {
     }
 }
 
-const MEMBERSHIPS_EVENTS : (keyof MembershipsApiEvents)[] = [
+export const MEMBERSHIPS_EVENTS : (keyof MembershipsApiEvents)[] = [
     'loaded',
     'subscription:created',
     'subscription:success',

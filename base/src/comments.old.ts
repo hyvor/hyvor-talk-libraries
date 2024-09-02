@@ -1,4 +1,5 @@
-import type { CommentCountProps, CommentsProps, CommentsEvents, CommentsSettings, CommentsTranslationsKeys } from './comments';
+import type { CommentsProps, CommentsEvents, CommentsSettings, CommentsTranslationsKeys } from './comments';
+import type { CommentCountProps } from './comment-counts';
 import { addScriptIfNotAdded } from './helper';
 
 export type Translations = Record<CommentsTranslationsKeys, string>;
@@ -43,9 +44,9 @@ export function addComments(
         for (const [key, value] of Object.entries(props)) {
             if (value !== undefined) {
                 if (key === 'settings' || key === 'translations') {
-                    comments[key] = value;
+                    (comments as any)[key] = value;
                 } else {
-                    comments.setAttribute(key, value);
+                    comments.setAttribute(key, value as any);
                 }
             }
         }
