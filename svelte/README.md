@@ -37,7 +37,7 @@ All props are the same as the base [hyvor-talk-comment-count](https://talk.hyvor
 First, add the `<CommentCount>` components to your app. Then, call `CommentCounts.load()` in `onMount` to load the comment counts.
 
 ```svelte
-<script lang="ts">
+<script>
     import { CommentCount } from '@hyvor/hyvor-talk-svelte';
     import { CommentCounts } from '@hyvor/hyvor-talk-base';
     import { onMount } from 'svelte';
@@ -58,7 +58,7 @@ First, add the `<CommentCount>` components to your app. Then, call `CommentCount
 Use the `<NewsletterForm>` component to add a newsletter form to your webpage. The props are the same as the attributes of [hyvor-talk-newsletter](https://talk.hyvor.com/docs/newsletters#form-properties).
 
 ```svelte
-<script lang="ts">
+<script>
     import { NewsletterForm } from '@hyvor/hyvor-talk-svelte';
 </script>
 
@@ -72,7 +72,7 @@ Use the `<NewsletterForm>` component to add a newsletter form to your webpage. T
 Use the `<Memberships>` component to add memberships to your webpage. The props are the same as the attributes of [hyvor-talk-memberships](https://talk.hyvor.com/docs/memberships#component-attributes).
 
 ```svelte
-<script lang="ts">
+<script>
     import { Memberships } from '@hyvor/hyvor-talk-svelte';
 </script>
 
@@ -84,7 +84,7 @@ Use the `<Memberships>` component to add memberships to your webpage. The props 
 Once you have memberships set up, you can use the `<GatedContent>` component to show content only to members. The props are the same as the attributes of [hyvor-talk-gated-content](https://talk.hyvor.com/docs/gated-content#component-attributes).
 
 ```svelte
-<script lang="ts">
+<script>
     import { GatedContent } from '@hyvor/hyvor-talk-svelte';
 </script>
 
