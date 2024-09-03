@@ -19,4 +19,4 @@
     });
 </script>
 
-<div bind:this={wrap}></div>
+<div class="ht-newsletter-wrap" bind:this={wrap}></div>
