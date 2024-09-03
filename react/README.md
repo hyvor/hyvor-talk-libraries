@@ -109,7 +109,7 @@ const App = () => {
     const commentsRef = useRef < {
         wrap: () => HTMLDivElement;
         element: () => CommentsCustomElement;
-    } > (null);
+    } | null > (null);
 
     useEffect(() => {
         if (commentsRef.current) {
