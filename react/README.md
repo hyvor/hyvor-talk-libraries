@@ -138,8 +138,11 @@ const App = () => {
             // This is the underlying <hyvor-talk-comments> element
             const element = commentsRef.current.element();
 
-            // Call API methods
-            console.log(element.api.page());
+            // Listen to events
+            element.addEventListener('loaded', () => {
+                // Call API methods
+                console.log(element.api.page());
+            });
 
         }
     }, []);

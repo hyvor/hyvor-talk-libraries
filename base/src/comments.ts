@@ -100,7 +100,6 @@ export class Comments {
             });
         }
 
-        container.innerHTML = '';
         container.appendChild(comments);
 
         return comments;

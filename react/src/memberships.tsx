@@ -32,6 +32,10 @@ export const Memberships = forwardRef((props: MembershipsProps, ref) => {
                 }
             }
         )
+
+        return () => {
+            element.current?.remove();
+        }
     }, []);
 
     return <div className="ht-memberships-wrap" ref={wrap}></div>
@@ -65,6 +69,10 @@ export const GatedContent = forwardRef((props: GatedContentProps & { _key?: stri
             p,
             wrap.current!,
         )
+
+        return () => {
+            element.current?.remove();
+        }
     }, []);
 
     return <div className="ht-gated-content-wrap" ref={wrap}></div>

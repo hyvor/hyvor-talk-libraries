@@ -16,6 +16,10 @@ export const CommentCount = forwardRef((props: CommentCountProps, ref) => {
 
     useEffect(() => {
         element.current = CommentCounts.commentCount(props, wrap.current!);
+
+        return () => {
+            element.current?.remove();
+        }
     }, []);
 
 

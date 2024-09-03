@@ -42,7 +42,6 @@ export class Newsletters {
             }
         }
 
-        container.innerHTML = '';
         container.appendChild(newsletter);
 
         return newsletter;
