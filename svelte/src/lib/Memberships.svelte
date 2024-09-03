@@ -3,7 +3,7 @@
         type MembershipsProps,
         type MembershipsCustomElement,
         Memberships,
-        type MembershipsApiEvents,
+        type MembershipsEvents,
     } from "@hyvor/hyvor-talk-base";
     import { createEventDispatcher, onMount } from "svelte";
 
@@ -15,7 +15,7 @@
     export let wrap: HTMLDivElement | null = null;
     export let element: MembershipsCustomElement | null = null;
 
-    const dispatch = createEventDispatcher<MembershipsApiEvents>();
+    const dispatch = createEventDispatcher<MembershipsEvents>();
 
     onMount(() => {
         element = Memberships.memberships(

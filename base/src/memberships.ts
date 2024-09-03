@@ -86,7 +86,7 @@ export interface MembershipsApiSubscription {
     plan: MembershipsApiPlan;
 }
 
-export interface MembershipsApiEvents {
+export interface MembershipsEvents {
     /**
      * <hyvor-talk-memberships> is loaded.
      * API is ready to use.
@@ -115,7 +115,7 @@ export interface MembershipsApiEvents {
     }
 }
 
-export const MEMBERSHIPS_EVENTS : (keyof MembershipsApiEvents)[] = [
+export const MEMBERSHIPS_EVENTS : (keyof MembershipsEvents)[] = [
     'loaded',
     'subscription:created',
     'subscription:success',
@@ -139,7 +139,7 @@ export class Memberships {
     static memberships(
         props: MembershipsProps, 
         container?: HTMLElement,
-        onEvent?: <T extends keyof MembershipsApiEvents>(event: T, data: MembershipsApiEvents[T]) => void
+        onEvent?: <T extends keyof MembershipsEvents>(event: T, data: MembershipsEvents[T]) => void
     ) : MembershipsCustomElement {
         Memberships.script(props.instance);
         

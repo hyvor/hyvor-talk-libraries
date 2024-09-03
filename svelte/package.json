@@ -7,7 +7,7 @@
     "url": "https://github.com/hyvor/hyvor-talk-libraries"
   },
   "private": false,
-  "version": "1.0.0-beta.1",
+  "version": "1.0.0-beta.2",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -22,13 +22,13 @@
     "svelte": "^3.0.0 || ^4.0.0"
   },
   "devDependencies": {
-    "@sveltejs/package": "^2.0.2",
-    "@sveltejs/vite-plugin-svelte": "^2.0.3",
+    "@sveltejs/package": "^2.3.4",
+    "@sveltejs/vite-plugin-svelte": "^2.5.3",
     "@tsconfig/svelte": "^4.0.1",
     "svelte-check": "^4.0.0",
-    "tslib": "^2.5.0",
-    "typescript": "^5.0.2",
-    "vite": "^4.3.2"
+    "tslib": "^2.7.0",
+    "typescript": "^5.5.4",
+    "vite": "^4.5.3"
   },
   "exports": {
     ".": {
@@ -44,6 +44,6 @@
     "access": "public"
   },
   "dependencies": {
-    "@hyvor/hyvor-talk-base": "^1.0.0-beta.1"
+    "@hyvor/hyvor-talk-base": "^1.0.0-beta.3"
   }
 }

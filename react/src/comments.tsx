@@ -1,22 +1,31 @@
-import React, { useEffect, useRef } from 'react';
-import type { CommentsProps as CommentsPropsBase, Events } from '@hyvor/hyvor-talk-base';
-import { addComments } from '@hyvor/hyvor-talk-base';
+import React, { forwardRef, useEffect, useRef, useImperativeHandle } from 'react';
+import type { CommentsProps as CommentsPropsBase, CommentsEvents, CommentsCustomElement } from '@hyvor/hyvor-talk-base';
+import { Comments as CommentsBase } from '@hyvor/hyvor-talk-base';
 
-type OnType<T extends keyof Events = keyof Events> = Record<T, (data: Events[T]) => void>
+type OnType<T extends keyof CommentsEvents = keyof CommentsEvents> = Record<T, (data: CommentsEvents[T]) => void>
 
 type CommentsProps = CommentsPropsBase & {
     on?: Partial<OnType>
 }
 
-export function Comments(props: CommentsProps) {
+export const Comments = forwardRef((props: CommentsProps, ref) => {
 
-    const ref = useRef<null | HTMLDivElement>(null);
+    const wrap = useRef<null | HTMLDivElement>(null);
+    const element = useRef<null | CommentsCustomElement>(null);
+
     const { on: _, ...propsWithoutOn } = props;
 
+    useImperativeHandle(ref, () => {
+        return {
+            wrap: () => wrap.current,
+            element: () => element.current
+        }
+    }, []);
+
     useEffect(() => {
-        addComments(
+        element.current = CommentsBase.comments(
             propsWithoutOn,
-            ref.current!,
+            wrap.current!,
             (event, data) => {
                 const callback = props.on?.[event];
                 if (callback && typeof callback === 'function') {
@@ -26,6 +35,6 @@ export function Comments(props: CommentsProps) {
         )
     }, []);
 
-    return <div ref={ref}></div>
+    return <div className="ht-comments-wrap" ref={wrap}></div>
 
-}
+});

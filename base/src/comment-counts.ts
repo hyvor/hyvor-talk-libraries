@@ -11,6 +11,8 @@ export interface CommentCountProps {
     instance?: string,
 }
 
+export type CommentCountCustomElement = HTMLElement;
+
 export class CommentCounts {
 
     static script(instance?: string) {
@@ -24,7 +26,7 @@ export class CommentCounts {
     ) {
         CommentCounts.script(props.instance);
 
-        const commentCount = document.createElement('hyvor-talk-comment-count');
+        const commentCount = document.createElement('hyvor-talk-comment-count') as CommentCountCustomElement;
 
         for (const [key, value] of Object.entries(props)) {
             if (value !== undefined) {
@@ -33,6 +35,8 @@ export class CommentCounts {
         }
 
         wrap.appendChild(commentCount);
+
+        return commentCount;
     }
 
     static load(

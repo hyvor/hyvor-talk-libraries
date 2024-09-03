@@ -32,7 +32,15 @@ export type CommentsProps = {
 }>;
 
 export type CommentsCustomElement = HTMLElement & {
-    api: {},
+    load: () => void,
+    api: {
+        reload: () => void,
+        page: () => CommentsApiPage,
+        auth: {
+            user: () => CommentsApiLoggedUser | null,
+            logout: () => void,
+        }
+    },
 };
 
 export const COMMENTS_EVENTS : (keyof CommentsEvents)[] = [
@@ -487,6 +495,23 @@ export interface CommentsEvents {
 
 // API Types ========================================
 
+export interface CommentsApiPage {
+    id: number,
+    created_at: number,
+    identifier: string,
+    url: string,
+    title: string,
+    is_closed: boolean,
+    is_premoderation_on: boolean,
+    comments_count: number,
+    reactions: Record<'superb' | 'love' | 'wow' | 'sad' |  'laugh' | 'angry', number>,
+    ratings: {
+        average: number,
+        count: number
+    },
+    online_count: number
+}
+
 export interface CommentsApiBaseComment {
     id: number,
     page_id: number,
@@ -507,7 +532,7 @@ export interface CommentsApiRealComment extends CommentsApiBaseComment {
     is_edited: boolean,
     upvotes: number,
     downvotes: number,
-    user: User,
+    user: CommentsApiUser,
     status: 'published' | 'spam' | 'deleted' | 'pending'
 }
 export type Comment = CommentsApiHiddenComment | CommentsApiRealComment;
@@ -533,6 +558,6 @@ export interface CommentsApiLoggedUser extends CommentsApiBaseUser {
     type: 'hyvor' | 'sso'
 }
 
-export type User = CommentsApiGuestUser | CommentsApiLoggedUser;
+export type CommentsApiUser = CommentsApiGuestUser | CommentsApiLoggedUser;
 
 
