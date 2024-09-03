@@ -6,16 +6,17 @@ npm install @hyvor/hyvor-talk-svelte
 
 ### Usage
 
-The library contains two components:
+The following components are available:
 
-- `<Comments>` - The comments embed (wrapper around [`<hyvor-talk-comments>`](https://talk.hyvor.com/docs/install))
-- `<CommentCount>` - Comment counts widget (wrapper around [`<hyvor-talk-comment-count>`](https://talk.hyvor.com/docs/comment-counts))
-
+-   **`<Comments>`** - wraps [`<hyvor-talk-comments>`](https://talk.hyvor.com/docs/comments)
+-   **`<CommentCount>`** - wraps [`<hyvor-talk-comment-count>`](https://talk.hyvor.com/docs/comment-counts)
+-   **`<NewsletterForm>`** - wraps [`<hyvor-talk-newsletter>`](https://talk.hyvor.com/docs/newsletters)
+-   **`<Memberships>`** - wraps [`<hyvor-talk-memberships>`](https://talk.hyvor.com/docs/memberships)
+-   **`<GatedContent>`** - wraps [`<hyvor-talk-gated-content>`](https://talk.hyvor.com/docs/gated-content)
 
 ### Comments
 
-All props in the `<Comments>` component are the same as the base [hyvor-talk-comments](https://talk.hyvor.com/docs/install) Web Component.
-
+Use the `<Comments>` component to add comments to your webpage. The props are the same as the attributes of [hyvor-talk-comments](https://talk.hyvor.com/docs/comments#attributes).
 
 ```svelte
 <script>
@@ -28,9 +29,75 @@ All props in the `<Comments>` component are the same as the base [hyvor-talk-com
 />
 ```
 
-Use the `on:` directive to listen to [events](https://talk.hyvor.com/docs/events) emitted by the component.
+### Comment Counts
 
-```jsx
+Use the `<CommentCount>` component to display the number of comments on a page.
+All props are the same as the base [hyvor-talk-comment-count](https://talk.hyvor.com/docs/comment-counts) Web Component.
+
+First, add the `<CommentCount>` components to your app. Then, call `CommentCounts.load()` in `onMount` to load the comment counts.
+
+```svelte
+<script lang="ts">
+    import { CommentCount } from '@hyvor/hyvor-talk-svelte';
+    import { CommentCounts } from '@hyvor/hyvor-talk-base';
+    import { onMount } from 'svelte';
+
+    onMount(() => {
+        CommentCounts.load({
+            'website-id': YOUR_WEBSITE_ID,
+        });
+    })
+</script>
+
+<CommentCount page-id="my-page-1" />
+<CommentCount page-id="my-page-2" />
+```
+
+### Newsletter Form
+
+Use the `<NewsletterForm>` component to add a newsletter form to your webpage. The props are the same as the attributes of [hyvor-talk-newsletter](https://talk.hyvor.com/docs/newsletters#form-properties).
+
+```svelte
+<script lang="ts">
+    import { NewsletterForm } from '@hyvor/hyvor-talk-svelte';
+</script>
+
+<NewsletterForm
+    website-id={YOUR_WEBSITE_ID}
+/>
+```
+
+### Memberships & Gated Content
+
+Use the `<Memberships>` component to add memberships to your webpage. The props are the same as the attributes of [hyvor-talk-memberships](https://talk.hyvor.com/docs/memberships#component-attributes).
+
+```svelte
+<script lang="ts">
+    import { Memberships } from '@hyvor/hyvor-talk-svelte';
+</script>
+
+<Memberships
+    website-id={YOUR_WEBSITE_ID}
+/>
+```
+
+Once you have memberships set up, you can use the `<GatedContent>` component to show content only to members. The props are the same as the attributes of [hyvor-talk-gated-content](https://talk.hyvor.com/docs/gated-content#component-attributes).
+
+```svelte
+<script lang="ts">
+    import { GatedContent } from '@hyvor/hyvor-talk-svelte';
+</script>
+
+<GatedContent key="my-content" />
+```
+
+---
+
+### Listening to Events
+
+Use the `on:` directive to listen to [events](https://talk.hyvor.com/docs/comments#events) emitted by the component. Supported by all components.
+
+```svelte
 <Comments
     website-id={YOUR_WEBSITE_ID}
     page-id={UNIQUE_PAGE_ID}
@@ -40,62 +107,26 @@ Use the `on:` directive to listen to [events](https://talk.hyvor.com/docs/events
 />
 ```
 
-### Comment Counts
+### Accessing the Web Component Instance
 
-All props in the `<CommentCount>` component are the same as the base [hyvor-talk-comment-count](https://talk.hyvor.com/docs/comment-counts) Web Component.
-
-If you only have one `<CommentCount>` on the page, use the component directly:
+Bind the `element` prop to a variable to access the underlying Web Component instance. This is useful to call [API methods](https://talk.hyvor.com/docs/comments#api).
 
 ```svelte
 <script>
-    import { CommentCount } from '@hyvor/hyvor-talk-svelte';
-</script>
-
-<CommentCount
-    page-id={PAGE_ID}
-    website-id={YOUR_WEBSITE_ID}
-/>
-```
-
-
-If you have multiple `<CommentCount>` in the page, use `loading="manual"` prop on each component and call `loadCommentCounts()` function when the components are mounted. This will reduce the number of API calls needed.
-
-```svelte
-<script>
-    import { CommentCount, loadCommentCounts } from '@hyvor/hyvor-talk-svelte';
+    import { Comments } from '@hyvor/hyvor-talk-svelte';
     import { onMount } from 'svelte';
 
-    onMount(() => {
-        loadCommentCounts({
-            'website-id': YOUR_WEBSITE_ID,
-        });
-    });
+    let element;
+
+    function onLoad() {
+        console.log(element.api.page());
+    }
 </script>
 
-<div>
-    <CommentCount
-        page-id={PAGE_ID_1}
-        loading="manual"
-    />
-    <CommentCount
-        page-id={PAGE_ID_2}
-        loading="manual"
-    />
-</div>
+<Comments
+    website-id={YOUR_WEBSITE_ID}
+    page-id={UNIQUE_PAGE_ID}
+    bind:element
+    on:loaded={onLoad}
+/>
 ```
-
-
-`loadCommentCounts` function has the following signature:
-
-```ts
-loadCommentCounts(
-    options: {
-        "website-id"?: number,
-        mode?: 'text' | 'number',
-        language?: string,
-    } = {},
-    callback: ((count: number | string, el: Element) => string | number) | null = null
-): void
-```
-
-See the [comment counts](https://talk.hyvor.com/docs/comment-counts) documentation for more details.

@@ -1,20 +1,31 @@
 <script lang="ts">
-    import { createEventDispatcher, onMount } from 'svelte';
-    import type { CommentsProps as CommentsPropsBase } from '@hyvor/hyvor-talk-base';
-    import { addComments } from '@hyvor/hyvor-talk-base';
-    
-    type $$Props = CommentsPropsBase;
-    let ref;
+    import { createEventDispatcher, onMount } from "svelte";
+    import {
+        type CommentsCustomElement,
+        type CommentsProps,
+        Comments,
+        type CommentsEvents,
+    } from "@hyvor/hyvor-talk-base";
 
-    const dispatch = createEventDispatcher();
+    type $$Props = CommentsProps & {
+        wrap?: HTMLDivElement;
+        element?: CommentsCustomElement;
+    };
 
-    onMount(() => addComments(
-        $$props as CommentsPropsBase, 
-        ref!,
-        (event, data) => {
-            dispatch(event, data);
-        }
-    ));
+    const dispatch = createEventDispatcher<CommentsEvents>();
+
+    export let wrap: HTMLDivElement | null = null;
+    export let element: CommentsCustomElement | null = null;
+
+    onMount(() => {
+        element = Comments.comments(
+            $$props as CommentsProps,
+            wrap!,
+            (event, data) => {
+                dispatch(event, data);
+            }
+        );
+    });
 </script>
 
-<div bind:this={ref}></div>
+<div class="ht-comments-wrap" bind:this={wrap}></div>

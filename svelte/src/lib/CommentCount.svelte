@@ -1,12 +1,19 @@
 <script lang="ts">
     import { onMount } from "svelte";
-    import { addCommentCounts } from '@hyvor/hyvor-talk-base';
-    import type { CommentCountProps as CommentCountPropsBase } from '@hyvor/hyvor-talk-base';
+    import {
+        type CommentCountProps,
+        CommentCounts,
+    } from "@hyvor/hyvor-talk-base";
 
-    type $$Props = CommentCountPropsBase;
+    type $$Props = CommentCountProps & {
+        wrap?: HTMLSpanElement;
+    };
 
-    onMount(() => addCommentCounts($$props as CommentCountPropsBase));
+    export let wrap: HTMLSpanElement | null = null;
 
+    onMount(() => {
+        CommentCounts.commentCount($$props as CommentCountProps, wrap);
+    });
 </script>
 
-<hyvor-talk-comment-count {...$$props} />
+<span class="ht-comment-count-wrap" bind:this={wrap}></span>
