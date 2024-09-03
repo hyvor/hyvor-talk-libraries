@@ -1,60 +1,60 @@
 name: Playwright Tests
 on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+    push:
+        branches: [main]
+    pull_request:
+        branches: [main]
 jobs:
-  test:
-    timeout-minutes: 10
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 18
+    test:
+        timeout-minutes: 10
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+            - uses: actions/setup-node@v3
+              with:
+                  node-version: 18
 
-      - name: Set up libraries
-        run: |
-          npm ci --prefix react
-          npm ci --prefix svelte
-          npm ci --prefix vue
+            - name: Set up libraries
+              run: |
+                  npm ci --prefix react
+                  npm ci --prefix svelte
+                  npm ci --prefix vue
 
-      - name: Package Libraries
-        run: |
-          npm run package --prefix react
-          npm run package --prefix svelte
-          npm run package --prefix vue
+            - name: Package Libraries
+              run: |
+                  npm run package --prefix react
+                  npm run package --prefix svelte
+                  npm run package --prefix vue
 
-      - name: Run tests app
-        working-directory: tests
-        run: |
-          npm ci
-          npm run dev &
+            - name: Run tests app
+              working-directory: tests
+              run: |
+                  npm ci
+                  npm run dev &
 
-      - name: Run Tests
-        working-directory: tests
-        run: |
-          npx playwright install --with-deps
-          npx playwright test
+            - name: Run Tests
+              working-directory: tests
+              run: |
+                  npx playwright install --with-deps
+                  npx playwright test
 
-  typescript-validation:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 18
-      - name: Set up libraries
-        run: |
-          npm ci --prefix base
-          npm ci --prefix react
-          npm ci --prefix svelte
-          npm ci --prefix vue
+    typescript-validation:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+            - uses: actions/setup-node@v2
+              with:
+                  node-version: 18
+            - name: Set up libraries
+              run: |
+                  npm ci --prefix base
+                  npm ci --prefix react
+                  npm ci --prefix svelte
+                  npm ci --prefix vue
 
-      - name: Validate Typescript
-        run: |
-          npm run ts-validate --prefix base
-          npm run ts-validate --prefix react
-          npm run ts-validate --prefix svelte
-          npm run ts-validate --prefix vue
+            - name: Validate Typescript
+              run: |
+                  npm run ts-validate --prefix base
+                  npm run ts-validate --prefix react
+                  npm run ts-validate --prefix svelte
+                  npm run ts-validate --prefix vue
