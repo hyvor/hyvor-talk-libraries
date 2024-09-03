@@ -6,10 +6,13 @@ npm install @hyvor/hyvor-talk-react
 
 ### Usage
 
-The library contains two components:
+The following components are available:
 
--   `<Comments>` - The comments embed (wrapper around [`<hyvor-talk-comments>`](https://talk.hyvor.com/docs/install))
--   `<CommentCount>` - Comment counts widget (wrapper around [`<hyvor-talk-comment-count>`](https://talk.hyvor.com/docs/comment-counts))
+-   **`<Comments>`** - wraps [`<hyvor-talk-comments>`](https://talk.hyvor.com/docs/comments)
+-   **`<CommentCount>`** - wraps [`<hyvor-talk-comment-count>`](https://talk.hyvor.com/docs/comment-counts)
+-   **`<NewsletterForm>`** - wraps [`<hyvor-talk-newsletter>`](https://talk.hyvor.com/docs/newsletters)
+-   **`<Memberships>`** - wraps [`<hyvor-talk-memberships>`](https://talk.hyvor.com/docs/memberships)
+-   **`<GatedContent>`** - wraps [`<hyvor-talk-gated-content>`](https://talk.hyvor.com/docs/gated-content)
 
 ### Comments
 
@@ -26,55 +29,70 @@ const App = () => {
 
 ### Comment Counts
 
-All props in the `<CommentCount>` component are the same as the base [hyvor-talk-comment-count](https://talk.hyvor.com/docs/comment-counts) Web Component.
+Use the `<CommentCount>` component to display the number of comments on a page.
+All props are the same as the base [hyvor-talk-comment-count](https://talk.hyvor.com/docs/comment-counts) Web Component.
 
-If you only have one `<CommentCount>` on the page, use the component directly:
+First, add the `<CommentCount>` components to your app. Then, call `CommentCounts.load()` in `onMount` to load the comment counts.
 
 ```jsx
 import React from "react";
 import { CommentCount } from "@hyvor/hyvor-talk-react";
-
-const App = () => {
-    return <CommentCount page-id={PAGE_ID} website-id={YOUR_WEBSITE_ID} />;
-};
-```
-
-If you have multiple `<CommentCount>` in the page, use `loading="manual"` prop on each component and call `loadCommentCounts()` function when the components are mounted. This will reduce the number of API calls needed.
-
-```jsx
-import React from "react";
-import { CommentCount, loadCommentCounts } from "@hyvor/hyvor-talk-react";
+import { CommentCounts } from "@hyvor/hyvor-talk-base";
 
 const App = () => {
     useEffect(() => {
-        loadCommentCounts({
+        CommentCounts.load({
             "website-id": YOUR_WEBSITE_ID,
         });
     }, []);
 
     return (
         <div>
-            <CommentCount page-id={PAGE_ID_1} loading="manual" />
-            <CommentCount page-id={PAGE_ID_2} loading="manual" />
+            <CommentCount page-id={PAGE_ID_1} />
+            <CommentCount page-id={PAGE_ID_2} />
         </div>
     );
 };
 ```
 
-`loadCommentCounts` function has the following signature:
+### Newsletter Form
 
-```ts
-loadCommentCounts(
-    options: {
-        "website-id"?: number,
-        mode?: 'text' | 'number',
-        language?: string,
-    } = {},
-    callback: ((count: number | string, el: Element) => string | number) | null = null
-): void
+Use the `<NewsletterForm>` component to add a newsletter form to your webpage. The props are the same as the attributes of [hyvor-talk-newsletter](https://talk.hyvor.com/docs/newsletters#form-properties).
+
+```tsx
+import React from "react";
+import { NewsletterForm } from "@hyvor/hyvor-talk-react";
+
+const App = () => {
+    return <NewsletterForm website-id={YOUR_WEBSITE_ID} />;
+};
 ```
 
-See the [comment counts](https://talk.hyvor.com/docs/comment-counts) documentation for more details.
+### Memberships & Gated Content
+
+Use the `<Memberships>` component to add memberships to your webpage. The props are the same as the attributes of [hyvor-talk-memberships](https://talk.hyvor.com/docs/memberships#component-attributes).
+
+```tsx
+import React from "react";
+import { Memberships } from "@hyvor/hyvor-talk-react";
+
+const App = () => {
+    return <Memberships website-id={YOUR_WEBSITE_ID} />;
+};
+```
+
+Once you have memberships set up, you can use the `<GatedContent>` component to show content only to members. The props are the same as the attributes of [hyvor-talk-gated-content](https://talk.hyvor.com/docs/gated-content#component-attributes). The `key` prop is renamed to `_key` to avoid conflicts with the reserved `key` prop in React.
+
+```tsx
+import React from "react";
+import { GatedContent } from "@hyvor/hyvor-talk-react";
+
+const App = () => {
+    return <GatedContent _key="my-content" />;
+};
+```
+
+---
 
 ### Listening to Events
 
@@ -113,6 +131,9 @@ const App = () => {
 
     useEffect(() => {
         if (commentsRef.current) {
+
+            // This is the wrapping <div> element
+            const wrap = commentsRef.current.wrap();
 
             // This is the underlying <hyvor-talk-comments> element
             const element = commentsRef.current.element();

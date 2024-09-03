@@ -1,7 +1,6 @@
 import { createRoot } from 'react-dom/client';
 import React, { useEffect, useRef } from 'react';
-import { Comments, CommentCount }  from './src';
-import { CommentCounts } from '@hyvor/hyvor-talk-base';
+import { Comments, CommentCount, NewsletterForm, Memberships, GatedContent }  from './src';
 
 const root = createRoot(document.getElementById('root'));
 root.render(<App />);
@@ -10,12 +9,14 @@ function App() {
 
     const commentsRef = useRef(null);
     const commentCountRef = useRef(null);
+    const newsletterRef = useRef(null);
+    const membershipsRef = useRef(null);
 
     useEffect(() => {
         setTimeout(() => {
             console.log(
-                commentCountRef.current,
-                commentCountRef.current!.element()
+                membershipsRef.current,
+                membershipsRef.current?.element(),
             );
         },)
 
@@ -30,6 +31,11 @@ function App() {
             page-id="test"
             ref={commentCountRef}
         />
+        <NewsletterForm website-id={14} ref={newsletterRef} />
+
+        <GatedContent _key="key" />
+        <Memberships website-id={8818} ref={membershipsRef} />
+
     </div>
 
 }
