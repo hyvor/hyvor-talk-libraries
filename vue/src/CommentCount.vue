@@ -1,41 +1,26 @@
 <script lang="ts">
-import { CommentCountProps, addCommentCounts } from '@hyvor/hyvor-talk-base';
-import { h, defineComponent, onMounted } from 'vue';
-import { KebabToCamelCase, KeysEnum } from './vue-types-util';
+import { CommentCountCustomElement, CommentCountProps, CommentCounts } from '@hyvor/hyvor-talk-base';
+import { h, defineComponent, onMounted, ref } from 'vue';
+import { CamelCaseProps, htPropsFromVueProps } from './helper';
+import { PROPS_KEYS } from './props-keys';
 
-type CamelCaseProps = {
-  [K in keyof CommentCountProps as KebabToCamelCase<K & string>]: CommentCountProps[K];
-};
+type CommentCountPropsCamelCase = CamelCaseProps<CommentCountProps>;
 
-const allCamelCasePropKeysObject : KeysEnum<CamelCaseProps> = {
-    'websiteId': true,
-    'pageId': true,
-    mode: true,
-    language: true,
-    loading: true,
-};
-const allCamelCasePropKeys = Object.keys(allCamelCasePropKeysObject) as (keyof CamelCaseProps)[];
+export default defineComponent((props: CommentCountPropsCamelCase) => {
 
-export default defineComponent((props: CamelCaseProps) => {
-
-    const kebabProps = {} as CommentCountProps;
-    for (const key in props) {
-        const kebabKey = key
-            .replace(/([a-z0-9]|(?=[A-Z]))([A-Z])/g, '$1-$2')
-            .toLowerCase() as keyof CommentCountProps;
-
-        // @ts-ignore
-        kebabProps[kebabKey] = props[key as keyof CamelCaseProps] as CommentCountProps[keyof CommentCountProps];
-    }
+    const wrap = ref<null | HTMLDivElement>(null);
+    const element = ref<null | CommentCountCustomElement>(null);
 
     onMounted(() => {
-        addCommentCounts(kebabProps)
+        if (wrap.value) {
+            element.value = CommentCounts.commentCount(htPropsFromVueProps(props), wrap.value);
+        }
     });
 
-    return () => h('hyvor-talk-comment-count', kebabProps);
+    return () => h('span', { class: 'ht-comment-count-wrap', ref: wrap });
 
 }, {
-    props: allCamelCasePropKeys
+    props: PROPS_KEYS['comment-count'] as unknown as (keyof CommentCountPropsCamelCase)[],
 });
 
 </script>

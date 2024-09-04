@@ -22,7 +22,6 @@ export const CommentCount = forwardRef((props: CommentCountProps, ref) => {
         }
     }, []);
 
-
     return <span className="ht-comment-count-wrap" ref={wrap}></span>
 
 });
