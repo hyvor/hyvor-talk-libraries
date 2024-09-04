@@ -34,12 +34,12 @@ jobs:
             - name: React tests
               run: |
                   cd react  
-                  bun run build:prop-keys
                   bun run test
                   bun run ts-validate
 
             - name: Vue tests
               run: |
                   cd vue
+                  bun run build:prop-keys
                   bun run test
                   bun run ts-validate
