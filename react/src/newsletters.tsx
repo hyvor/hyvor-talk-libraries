@@ -18,6 +18,10 @@ export const NewsletterForm = forwardRef((props: NewslettersProps, ref) => {
             props,
             wrap.current!,
         )
+
+        return () => {
+            element.current?.remove();
+        }
     }, []);
 
     return <div className="ht-newsletter-wrap" ref={wrap}></div>

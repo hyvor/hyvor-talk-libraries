@@ -20,5 +20,9 @@ export default defineConfig({
                 },
             },
         },
+    },
+    // @ts-expect-error - test types
+    test: {
+        environment: 'jsdom',
     }
 })

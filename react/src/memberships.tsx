@@ -32,6 +32,10 @@ export const Memberships = forwardRef((props: MembershipsProps, ref) => {
                 }
             }
         )
+
+        return () => {
+            element.current?.remove();
+        }
     }, []);
 
     return <div className="ht-memberships-wrap" ref={wrap}></div>
@@ -41,7 +45,7 @@ export const Memberships = forwardRef((props: MembershipsProps, ref) => {
 /**
  * key is a reserved word in React. So, we use _key instead.
  */
-export const GatedContent = forwardRef((props: GatedContentProps & { _key?: string }, ref) => {
+export const GatedContent = forwardRef((props: Omit<GatedContentProps, 'key'> & { _key?: string }, ref) => {
 
     const wrap = useRef<null | HTMLDivElement>(null);
     const element = useRef<null | HTMLElement>(null);
@@ -55,7 +59,7 @@ export const GatedContent = forwardRef((props: GatedContentProps & { _key?: stri
 
     useEffect(() => {
 
-        const p = { ...props };
+        const p = { ...props } as GatedContentProps & { _key?: string };
         if (p._key) {
             p.key = p._key;
             delete p._key;
@@ -65,6 +69,10 @@ export const GatedContent = forwardRef((props: GatedContentProps & { _key?: stri
             p,
             wrap.current!,
         )
+
+        return () => {
+            element.current?.remove();
+        }
     }, []);
 
     return <div className="ht-gated-content-wrap" ref={wrap}></div>

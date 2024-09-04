@@ -9,3 +9,10 @@ export function addScriptIfNotAdded(src: string) {
     document.head.appendChild(script);
 }
 
+export function setAttributes(element: HTMLElement, props: Record<string, any>) {
+    for (const [key, value] of Object.entries(props)) {
+        if (value !== undefined && value !== null) {
+            element.setAttribute(key, value.toString());
+        }
+    }
+}

@@ -1,4 +1,4 @@
-import { addScriptIfNotAdded } from "./helper";
+import { addScriptIfNotAdded, setAttributes } from "./helper";
 import { HYVOR_TALK_CLOUD_INSTANCE } from "./vars";
 
 export interface CommentCountProps {
@@ -27,12 +27,7 @@ export class CommentCounts {
         CommentCounts.script(props.instance);
 
         const commentCount = document.createElement('hyvor-talk-comment-count') as CommentCountCustomElement;
-
-        for (const [key, value] of Object.entries(props)) {
-            if (value !== undefined) {
-                commentCount.setAttribute(key, value as any);
-            }
-        }
+        setAttributes(commentCount, props);
 
         wrap.appendChild(commentCount);
 

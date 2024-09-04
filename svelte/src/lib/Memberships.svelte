@@ -19,7 +19,7 @@
 
     onMount(() => {
         element = Memberships.memberships(
-            $$props as MembershipsProps,
+            $$restProps as MembershipsProps,
             wrap,
             (event, data) => {
                 dispatch(event, data);

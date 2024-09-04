@@ -33,6 +33,10 @@ export const Comments = forwardRef((props: CommentsProps, ref) => {
                 }
             }
         )
+
+        return () => {
+            element.current?.remove();
+        }
     }, []);
 
     return <div className="ht-comments-wrap" ref={wrap}></div>

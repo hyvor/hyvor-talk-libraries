@@ -1,4 +1,4 @@
-import { addScriptIfNotAdded } from "./helper";
+import { addScriptIfNotAdded, setAttributes } from "./helper";
 import { HYVOR_TALK_CLOUD_INSTANCE } from "./vars";
 
 export type NewslettersProps = {
@@ -35,14 +35,8 @@ export class Newsletters {
         Newsletters.script(props.instance);
         
         const newsletter = document.createElement('hyvor-talk-newsletter') as NewslettersCustomElement;
+        setAttributes(newsletter, props);
 
-        for (const [key, value] of Object.entries(props)) {
-            if (value !== undefined) {
-                newsletter.setAttribute(key, value.toString());
-            }
-        }
-
-        container.innerHTML = '';
         container.appendChild(newsletter);
 
         return newsletter;

@@ -10,11 +10,14 @@
         element?: HTMLElement;
     };
 
-    let wrap: HTMLDivElement | null = null;
-    let element: HTMLElement | null = null;
+    export let wrap: HTMLDivElement | null = null;
+    export let element: HTMLElement | null = null;
 
     onMount(() => {
-        element = Memberships.gatedContent($$props as GatedContentProps, wrap);
+        element = Memberships.gatedContent(
+            $$restProps as GatedContentProps,
+            wrap
+        );
     });
 </script>
 

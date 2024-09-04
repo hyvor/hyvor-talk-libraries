@@ -7,12 +7,17 @@
 
     type $$Props = CommentCountProps & {
         wrap?: HTMLSpanElement;
+        element?: HTMLElement;
     };
 
     export let wrap: HTMLSpanElement | null = null;
+    export let element: HTMLElement | null = null;
 
     onMount(() => {
-        CommentCounts.commentCount($$props as CommentCountProps, wrap);
+        element = CommentCounts.commentCount(
+            $$restProps as CommentCountProps,
+            wrap
+        );
     });
 </script>
 
