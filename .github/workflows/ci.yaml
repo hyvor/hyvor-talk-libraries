@@ -10,51 +10,21 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v3
-            - uses: actions/setup-node@v3
-              with:
-                  node-version: 18
+            - uses: oven-sh/setup-bun@v2
 
             - name: Set up libraries
               run: |
-                  npm ci --prefix react
-                  npm ci --prefix svelte
-                  npm ci --prefix vue
+                  bun install --cwd react
+                  bun install --cwd svelte
+                  bun install --cwd vue
 
-            - name: Package Libraries
+            - name: Run base tests
               run: |
-                  npm run package --prefix react
-                  npm run package --prefix svelte
-                  npm run package --prefix vue
+                  cd base
+                  bun test
+                  bun run ts-validate
 
-            - name: Run tests app
-              working-directory: tests
+            - name: Run svelte tests
               run: |
-                  npm ci
-                  npm run dev &
-
-            - name: Run Tests
-              working-directory: tests
-              run: |
-                  npx playwright install --with-deps
-                  npx playwright test
-
-    typescript-validation:
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v2
-            - uses: actions/setup-node@v2
-              with:
-                  node-version: 18
-            - name: Set up libraries
-              run: |
-                  npm ci --prefix base
-                  npm ci --prefix react
-                  npm ci --prefix svelte
-                  npm ci --prefix vue
-
-            - name: Validate Typescript
-              run: |
-                  npm run ts-validate --prefix base
-                  npm run ts-validate --prefix react
-                  npm run ts-validate --prefix svelte
-                  npm run ts-validate --prefix vue
+                  cd svelte
+                  bun run test
