@@ -15,7 +15,7 @@ type CommentsPropsCamelCase = CamelCaseProps<CommentsProps>;
  * https://vuejs.org/api/general.html#definecomponent
  */
 
-export default defineComponent((props: CommentsPropsCamelCase, { emit }) => {
+export default defineComponent((props: CommentsPropsCamelCase, { emit, expose }) => {
 
     const wrap = ref<null | HTMLDivElement>(null);
     const element = ref<null | CommentsCustomElement>(null);
@@ -35,6 +35,11 @@ export default defineComponent((props: CommentsPropsCamelCase, { emit }) => {
         }
 
     });
+
+    expose({
+        wrap: () => wrap.value,
+        element: () => element.value,
+    })
 
     return () => h('div', {  class: 'ht-comments-wrap', ref: wrap });
 

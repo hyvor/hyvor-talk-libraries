@@ -7,11 +7,12 @@
     "url": "https://github.com/hyvor/hyvor-talk-libraries"
   },
   "private": false,
-  "version": "1.0.0-beta.1",
+  "version": "1.0.0-beta.2",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc && vite build",
+    "build:prop-keys": "bun run ./scripts/build-props-keys.ts",
+    "build": "npm run build:prop-keys && vue-tsc && vite build",
     "preview": "vite preview",
     "package": "npm run build && vue-tsc",
     "ts-validate": "vue-tsc --noEmit --emitDeclarationOnly false",

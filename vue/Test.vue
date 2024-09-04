@@ -1,12 +1,16 @@
 <script setup lang="ts">
-    import { onMounted } from 'vue';
+    import { onMounted, useTemplateRef } from 'vue';
     import { Comments, CommentCount, NewsletterForm, Memberships, GatedContent } from './src';
     import { CommentCounts } from '@hyvor/hyvor-talk-base';
+
+    const commentsRef = useTemplateRef('comments');
 
     onMounted(() => {
         CommentCounts.load({
             "website-id": 14
         });
+
+        console.log(commentsRef.value!.element());
     })
 </script>
 
@@ -14,7 +18,7 @@
     <Comments 
         :website-id="14"
         t-login="LOOGIN"
-        @loaded="() => console.log('loaded')"
+        ref="comments"
     />
     <CommentCount
         page-id="1"

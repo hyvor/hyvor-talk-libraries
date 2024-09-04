@@ -36,3 +36,9 @@ jobs:
                   cd react
                   bun run test
                   bun run ts-validate
+
+            - name: Run vue tests
+              run: |
+                  cd vue
+                  bun run test
+                  bun run ts-validate
