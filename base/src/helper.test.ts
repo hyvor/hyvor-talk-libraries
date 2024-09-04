@@ -1,5 +1,5 @@
 import { test, expect } from 'bun:test';
-import { addScriptIfNotAdded } from './helper';
+import { addScriptIfNotAdded, setAttributes } from './helper';
 
 test('addScriptIfNotAdded', () => {
 
@@ -18,5 +18,23 @@ test('addScriptIfNotAdded', () => {
     const script2 = document.querySelectorAll(`script[src="${url}"]`);
     expect(script2.length).toBe(1);
     expect(script2[0].getAttribute('src')).toBe(url);
+
+});
+
+test('setAttributes', () => {
+
+    const el = document.createElement('div');
+
+    setAttributes(el, {
+        id: 'test',
+        'data-test': 'test',
+        'undefined': undefined,
+        'null': null,
+    });
+
+    expect(el.getAttribute('id')).toBe('test');
+    expect(el.getAttribute('data-test')).toBe('test');
+    expect(el.getAttribute('undefined')).toBe(null);
+    expect(el.getAttribute('null')).toBe(null);
 
 });

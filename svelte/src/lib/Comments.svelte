@@ -19,7 +19,7 @@
 
     onMount(() => {
         element = Comments.comments(
-            $$props as CommentsProps,
+            $$restProps as CommentsProps,
             wrap!,
             (event, data) => {
                 dispatch(event, data);

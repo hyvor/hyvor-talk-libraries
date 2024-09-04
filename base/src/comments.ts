@@ -74,7 +74,7 @@ export class Comments {
         const comments = document.createElement('hyvor-talk-comments') as CommentsCustomElement;
 
         for (let [key, value] of Object.entries(props)) {
-            if (value !== undefined) {
+            if (value !== undefined && value !== null) {
 
                 if (key === 'translations' && typeof value === 'object') {
                     for (let [k, v] of Object.entries(value)) {

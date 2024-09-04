@@ -1,4 +1,4 @@
-import { addScriptIfNotAdded } from "./helper";
+import { addScriptIfNotAdded, setAttributes } from "./helper";
 import { HYVOR_TALK_CLOUD_INSTANCE } from "./vars";
 
 export type MembershipsProps = {
@@ -144,12 +144,7 @@ export class Memberships {
         Memberships.script(props.instance);
         
         const memberships = document.createElement('hyvor-talk-memberships') as MembershipsCustomElement;
-
-        for (const [key, value] of Object.entries(props)) {
-            if (value !== undefined) {
-                memberships.setAttribute(key, value.toString());
-            }
-        }
+        setAttributes(memberships, props);
 
         if (onEvent) {
             MEMBERSHIPS_EVENTS.forEach(eventName => {
@@ -171,12 +166,7 @@ export class Memberships {
     ) {
         
         const gatedContent = document.createElement('hyvor-talk-gated-content') as HTMLElement;
-
-        for (const [key, value] of Object.entries(props)) {
-            if (value !== undefined) {
-                gatedContent.setAttribute(key, value.toString());
-            }
-        }
+        setAttributes(gatedContent, props);
 
         container.appendChild(gatedContent);
 

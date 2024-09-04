@@ -15,7 +15,7 @@
     export let element: NewslettersCustomElement | null = null;
 
     onMount(() => {
-        element = Newsletters.form($$props as NewslettersProps, wrap);
+        element = Newsletters.form($$restProps as NewslettersProps, wrap);
     });
 </script>
 
