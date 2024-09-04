@@ -1,4 +1,4 @@
-name: Playwright Tests
+name: Tests
 on:
     push:
         branches: [main]
@@ -14,6 +14,7 @@ jobs:
 
             - name: Set up libraries
               run: |
+                  bun install --cwd base
                   bun install --cwd react
                   bun install --cwd svelte
                   bun install --cwd vue
