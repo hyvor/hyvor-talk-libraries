@@ -7,7 +7,7 @@
     "url": "https://github.com/hyvor/hyvor-talk-libraries"
   },
   "private": false,
-  "version": "1.0.0-beta.2",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
