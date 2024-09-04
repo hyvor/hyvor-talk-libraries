@@ -1,31 +1,13 @@
 <script lang="ts">
-import { addComments, eventNames } from '@hyvor/hyvor-talk-base';
+import { Comments, COMMENTS_EVENTS, type CommentsCustomElement } from '@hyvor/hyvor-talk-base';
 import { h, defineComponent, onMounted, ref } from 'vue';
 import type { CommentsProps } from '@hyvor/hyvor-talk-base';
-import type { KebabToCamelCase, KeysEnum } from './vue-types-util';
+import { htPropsFromVueProps, type CamelCaseProps } from './helper';
+import { PROPS_KEYS } from './props-keys';
 
-type CamelCaseProps = {
-  [K in keyof CommentsProps as KebabToCamelCase<K & string>]: CommentsProps[K];
-};
+type CommentsPropsCamelCase = CamelCaseProps<CommentsProps>;
 
-
-const allCamelCasePropKeysObject : KeysEnum<CamelCaseProps> = {
-    'websiteId': true,
-    'pageId': true,
-    'pageUrl': true,
-    'pageTitle': true,
-    'pageLanguage': true,
-    'pageAuthor': true,
-    'ssoUser': true,
-    'ssoHash': true,
-    'colors': true,
-    'loading': true,
-    'settings': true,
-    'translations': true,
-};
-const allCamelCasePropKeys = Object.keys(allCamelCasePropKeysObject) as (keyof CamelCaseProps)[];
-
-const allEvents = eventNames;
+const allEvents = COMMENTS_EVENTS;
 
 /**
  * Vue does NOT support advanced types for props in defineProps()
@@ -35,43 +17,31 @@ const allEvents = eventNames;
  * https://vuejs.org/api/general.html#definecomponent
  */
 
-export default defineComponent((props: CamelCaseProps, { emit }) => {
+export default defineComponent((props: CommentsPropsCamelCase, { emit }) => {
 
     const wrap = ref<null | HTMLDivElement>(null);
+    const element = ref<null | CommentsCustomElement>(null);
 
     onMounted(() => {
 
-        const kebabProps = {} as CommentsProps;
-
-        for (const key in props) {
-            const kebabKey = key
-                .replace(/([a-z0-9]|(?=[A-Z]))([A-Z])/g, '$1-$2')
-                .toLowerCase() as keyof CommentsProps;
-
-            // @ts-ignore - no idea
-            kebabProps[kebabKey] = props[key as keyof CamelCaseProps] as CommentsProps[keyof CommentsProps];
-        }
-
         if (wrap.value) {
 
-            addComments(
-                kebabProps,
+            element.value = Comments.comments(
+                htPropsFromVueProps(props),
                 wrap.value!,
                 (event, data) => {
                     emit(event, data);
                 }
             )
 
-        } else {
-            console.log('oopzi', wrap);
         }
 
     });
 
-    return () => h('div', { ref: wrap });
+    return () => h('div', {  class: 'ht-comments-wrap', ref: wrap });
 
 }, {
-    props: allCamelCasePropKeys,
+    props: PROPS_KEYS.comments as unknown as (keyof CommentsPropsCamelCase)[],
     /**
      * There is no way to provide type safety to emit payloads (at least I don't know)
      */
