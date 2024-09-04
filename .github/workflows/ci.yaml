@@ -29,3 +29,10 @@ jobs:
               run: |
                   cd svelte
                   bun run test
+                  bun run check
+
+            - name: Run react tests
+              run: |
+                  cd react
+                  bun run test
+                  bun run ts-validate
