@@ -7,8 +7,6 @@ import { PROPS_KEYS } from './props-keys';
 
 type CommentsPropsCamelCase = CamelCaseProps<CommentsProps>;
 
-const allEvents = COMMENTS_EVENTS;
-
 /**
  * Vue does NOT support advanced types for props in defineProps()
  * https://github.com/vuejs/core/issues/8286
@@ -45,7 +43,7 @@ export default defineComponent((props: CommentsPropsCamelCase, { emit }) => {
     /**
      * There is no way to provide type safety to emit payloads (at least I don't know)
      */
-    emits: allEvents,
+    emits: COMMENTS_EVENTS,
 });
 
 </script>

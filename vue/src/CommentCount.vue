@@ -1,5 +1,5 @@
 <script lang="ts">
-import { CommentCountCustomElement, CommentCountProps, CommentCounts, addCommentCounts } from '@hyvor/hyvor-talk-base';
+import { CommentCountCustomElement, CommentCountProps, CommentCounts } from '@hyvor/hyvor-talk-base';
 import { h, defineComponent, onMounted, ref } from 'vue';
 import { CamelCaseProps, htPropsFromVueProps } from './helper';
 import { PROPS_KEYS } from './props-keys';
