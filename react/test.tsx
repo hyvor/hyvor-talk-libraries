@@ -26,6 +26,12 @@ function App() {
         <Comments
             website-id={14}
             ref={commentsRef}
+            on={{
+                "comment:published": (comment) => {
+                    comment.id;
+                },
+                "auth:login:clicked": (d) => console.log(d)
+            }}
         />
         <CommentCount
             page-id="test"
