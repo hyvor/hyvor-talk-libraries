@@ -1,4 +1,8 @@
-## 0.1.0 - 2024-09-02
+## 1.0.1 - 2024-09-09
+
+-   Updated types for CommentCounts mode
+
+## 1.0.0 - 2024-09-02
 
 -   Added newsletter, memberships support
 -   Deprecated helper functions like addComments() in favor of new classes (Comments, Newsletters, Memberships)

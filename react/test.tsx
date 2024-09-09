@@ -1,6 +1,7 @@
 import { createRoot } from 'react-dom/client';
 import React, { useEffect, useRef } from 'react';
 import { Comments, CommentCount, NewsletterForm, Memberships, GatedContent }  from './src';
+import { CommentCounts } from '@hyvor/hyvor-talk-base';
 
 const root = createRoot(document.getElementById('root'));
 root.render(<App />);
@@ -19,7 +20,6 @@ function App() {
                 membershipsRef.current?.element(),
             );
         },)
-
     }, [])
 
     return <div>

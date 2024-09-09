@@ -34,13 +34,20 @@ export class CommentCounts {
         return commentCount;
     }
 
-    static load(
+    static load<T extends 'text' | 'number'>(
         options: {
             "website-id"?: number,
-            mode?: 'text' | 'number',
+            mode?: T,
             language?: string,
         } = {},
-        callback: ((count: number | string, el: Element) => string | number) | null = null
+        callback: ((
+            count: 
+                T extends 'number' ? 
+                    number : (
+                        T extends 'text' ?
+                            string : number | string
+                    )
+            , el: Element) => string | number) | null = null
     ) {
         CommentCounts.script();
 

@@ -38,3 +38,33 @@ test('load comment counts', () => {
     expect(script.src).toBe('https://talk.hyvor.com/embed/comment-counts.js');
 
 })
+
+test('supports callback', () => {
+
+    (window as any).hyvorTalkCommentCounts = {
+        load: (options, callback) => {
+            callback(123, document.createElement('div'));
+        }
+    }
+
+    CommentCounts.load({
+        'website-id': 456,
+        mode: 'number'
+    }, (count, el) => {
+        // @ts-expect-error make sure it's a number
+        count.substring
+        expect(typeof count).toBe('number');
+        return count;
+    })
+
+    // types
+    CommentCounts.load({
+        'website-id': 456,
+        mode: 'text'
+    }, (count) => {
+        return count.substring(0)
+    })
+
+    customElements.define('hyvor-talk-comment-count', class extends HTMLElement { });
+
+});
