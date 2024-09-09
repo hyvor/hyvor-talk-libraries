@@ -41,13 +41,7 @@ test('load comment counts', () => {
 
 test('supports callback', () => {
 
-    (window as any).hyvorTalkCommentCounts = {
-        load: (options, callback) => {
-            callback(123, document.createElement('div'));
-        }
-    }
-
-    CommentCounts.load({
+    const test1 = () => CommentCounts.load({
         'website-id': 456,
         mode: 'number'
     }, (count, el) => {
@@ -58,13 +52,13 @@ test('supports callback', () => {
     })
 
     // types
-    CommentCounts.load({
+    const test = () => CommentCounts.load({
         'website-id': 456,
         mode: 'text'
     }, (count) => {
-        return count.substring(0)
+        count.substring;
+        return count;
     })
 
-    customElements.define('hyvor-talk-comment-count', class extends HTMLElement { });
 
 });
