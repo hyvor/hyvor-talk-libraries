@@ -38,3 +38,27 @@ test('load comment counts', () => {
     expect(script.src).toBe('https://talk.hyvor.com/embed/comment-counts.js');
 
 })
+
+test('supports callback', () => {
+
+    const test1 = () => CommentCounts.load({
+        'website-id': 456,
+        mode: 'number'
+    }, (count, el) => {
+        // @ts-expect-error make sure it's a number
+        count.substring
+        expect(typeof count).toBe('number');
+        return count;
+    })
+
+    // types
+    const test = () => CommentCounts.load({
+        'website-id': 456,
+        mode: 'text'
+    }, (count) => {
+        count.substring;
+        return count;
+    })
+
+
+});

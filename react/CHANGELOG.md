@@ -1,4 +1,9 @@
-### [1.0.0] - 2024-07-03
+### [1.0.1] - 2024-09-09
+
+-   Updated to @hyvor/hyvor-talk-base 1.0.1 for CommentCount types
+-   Updated types for events
+
+### [1.0.0] - 2024-09-03
 
 -   Added Newsletter & Memberships support
 -   Updaded to @hyvor/hyvor-talk-base 1.0.0 new API

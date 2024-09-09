@@ -1,7 +1,9 @@
 import { MembershipsCustomElement, MembershipsProps as MembershipsPropsBase, Memberships as MembershipsBase, MembershipsEvents, GatedContentProps } from '@hyvor/hyvor-talk-base';
 import React, { forwardRef, useEffect, useRef, useImperativeHandle } from 'react';
 
-type OnType<T extends keyof MembershipsEvents = keyof MembershipsEvents> = Record<T, (data: MembershipsEvents[T]) => void>
+type OnType<T extends keyof MembershipsEvents = keyof MembershipsEvents> = {
+    [K in T]: (data: MembershipsEvents[K]) => void
+}
 
 type MembershipsProps = MembershipsPropsBase & {
     on?: Partial<OnType>

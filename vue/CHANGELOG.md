@@ -1,3 +1,7 @@
+### [1.0.1] - 2024-09-09
+
+-   Updated to @hyvor/hyvor-talk-base 1.0.1 for CommentCount types
+
 ### [1.0.0] - 2024-07-05
 
 -   Added Newsletter & Memberships support

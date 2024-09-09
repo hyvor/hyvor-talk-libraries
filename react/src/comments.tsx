@@ -2,7 +2,9 @@ import React, { forwardRef, useEffect, useRef, useImperativeHandle } from 'react
 import type { CommentsProps as CommentsPropsBase, CommentsEvents, CommentsCustomElement } from '@hyvor/hyvor-talk-base';
 import { Comments as CommentsBase } from '@hyvor/hyvor-talk-base';
 
-type OnType<T extends keyof CommentsEvents = keyof CommentsEvents> = Record<T, (data: CommentsEvents[T]) => void>
+type OnType<T extends keyof CommentsEvents = keyof CommentsEvents> = {
+    [K in T]: (data: CommentsEvents[K]) => void
+}
 
 type CommentsProps = CommentsPropsBase & {
     on?: Partial<OnType>
