@@ -7,7 +7,7 @@
     "url": "https://github.com/hyvor/hyvor-talk-libraries"
   },
   "private": false,
-  "version": "1.0.1",
+  "version": "1.0.2",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -20,7 +20,7 @@
     "test": "vitest run"
   },
   "peerDependencies": {
-    "react": "^16.0.0 || ^17.0.0 || ^18.0.0"
+    "react": "^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0"
   },
   "devDependencies": {
     "@testing-library/dom": "^10.4.0",
