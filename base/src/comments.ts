@@ -12,6 +12,9 @@ export type CommentsProps = {
     "page-title"?: string,
     "page-language"?: string,
     "page-author"?: string,
+    "page-badges"?: string,
+
+    nonce?: string,
 
     "sso-user"?: string,
     "sso-hash"?: string,
@@ -39,7 +42,10 @@ export type CommentsCustomElement = HTMLElement & {
         auth: {
             user: () => CommentsApiLoggedUser | null,
             logout: () => void,
-        }
+        },
+        hooks: {
+            register: <T extends keyof CommentsHooks>(name: T, hook: (val: CommentsHooks[T]) => CommentsHooks[T]) => void,
+        },
     },
 };
 
@@ -210,13 +216,25 @@ export interface CommentsSettings {
 	 */
 	text: {
 		comment_box: string | null;
+		comment_button: string | null;
 		reply_box: string | null;
+		reply_button: string | null;
 		no_comments: string | null;
 		reactions: string | null;
 		ratings: string | null;
 		comment_count_0: string | null;
 		comment_count_1: string | null;
 		comment_count_multi: string | null;
+	};
+
+	commenting: {
+		guest: boolean;
+		force_guest: boolean;
+		guest_email: 'no' | 'optional' | 'required';
+		max_chars: number;
+		min_chars: number;
+		editing: boolean;
+		editing_timeout: number;
 	};
 
 	// editor options
@@ -229,6 +247,7 @@ export interface CommentsSettings {
 		code_blocks: boolean;
 		blockquotes: boolean;
 		inline_styles: boolean; // bold, italic, inline code, strike
+		spoiler: boolean;
 		links: boolean;
 		math: boolean;
 	};
@@ -281,6 +300,8 @@ interface Palette {
 export type CommentsTranslationsKeys =
     'reactions-text' |
     'ratings-text' |
+    'ratings-average-aria' |
+    'ratings-total-aria' |
     'ratings-1' |
     'ratings-multi' |
 
@@ -302,6 +323,9 @@ export type CommentsTranslationsKeys =
     'notifications-reply' |
     'notifications-mention' |
     'notifications-load-more' |
+
+    'loading' |
+    'sort-comments' |
 
     'top' |
     'newest' |
@@ -341,6 +365,8 @@ export type CommentsTranslationsKeys =
     'load-more' |
     'more-replies' |
     'hidden-comment' |
+    'blocked-comment' |
+    'unblock-user' |
     'reply' |
     'replying-with-count' |
     'guest' |
@@ -358,6 +384,8 @@ export type CommentsTranslationsKeys =
     'guest-email-required' |
     'guest-email-invalid' |
     'comment-char-limit' |
+    'comment-char-min' |
+    'comment-char-min-left' |
 
     'comment-box-text' |
     'reply-box-text' |
@@ -367,6 +395,7 @@ export type CommentsTranslationsKeys =
     'comment-button-text' |
     'reply-button-text' |
     'edit' |
+    'edit-cant' |
     'delete' |
     'delete-confirm' |
     'cancel' |
@@ -380,6 +409,7 @@ export type CommentsTranslationsKeys =
     'flag-reason' |
     'optional' |
     'banned' |
+    'banned-until' |
 
     'comments' |
     'settings' |
@@ -409,7 +439,11 @@ export type CommentsTranslationsKeys =
     'account-logout' |
     'account-my' |
 
-    'default-error'
+    'default-error' |
+    'mod-privacy' |
+    'mod-page-closed' |
+    'mod-page-premod' |
+    'drop-text'
 ;
 
 
@@ -518,6 +552,7 @@ export interface CommentsApiBaseComment {
     parent_id: number | null,
     depth: number,
     created_at: number,
+    blocked_user_htid: string | null,
 }
 export interface CommentsApiHiddenComment extends CommentsApiBaseComment {
     is_hidden: true,
@@ -545,6 +580,7 @@ export interface CommentsApiBaseUser {
     location: string | null,
     website_url: string | null,
     badges: number[],
+    title: string | null,
 }
 
 export interface CommentsApiGuestUser extends CommentsApiBaseUser {
@@ -554,9 +590,24 @@ export interface CommentsApiGuestUser extends CommentsApiBaseUser {
 
 export interface CommentsApiLoggedUser extends CommentsApiBaseUser {
     id: number,
-    type: 'hyvor' | 'sso'
+    type: 'hyvor' | 'sso',
+    is_mod: boolean,
+    is_mod_alias: boolean,
 }
 
 export type CommentsApiUser = CommentsApiGuestUser | CommentsApiLoggedUser;
+
+export type CommentsListType = 'main' | 'search' | 'user' | 'specific';
+
+export interface CommentsHooks {
+    'misc:branding': { text: string; props: Record<string, string> };
+    'time:format': { text: string; datetime: Date };
+    'icon': { name: string; html: string | null };
+    'render:comment:before': { comment: Comment; html: string | null; index: number; listType: CommentsListType };
+    'render:comment:after': { comment: Comment; html: string | null; index: number; listType: CommentsListType };
+    'render:comment:before-content': { comment: Comment; html: string | null; index: number; listType: CommentsListType };
+    'render:comment:after-content': { comment: Comment; html: string | null; index: number; listType: CommentsListType };
+    'comment:content:link': { attrs: Record<string, string | null> };
+}
 
 
