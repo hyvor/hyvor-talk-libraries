@@ -67,22 +67,31 @@ export interface MembershipsApiUser {
     bio: string | null;
     location: string | null;
     website_url: string | null;
-    subscription: MembershipsApiSubscription | null;
+    badges: number[];
+    title: string | null;
+    is_mod: boolean;
+    is_mod_alias: boolean;
+    subscription: MembershipsApiUserSubscription | null;
 }
 
 export interface MembershipsApiPlan {
     id: number;
     name: string;
-    description: string;
+    description: string | null;
     monthly_price: number;
+    features: string[];
     badge_id: number | null;
 }
 
 export interface MembershipsApiSubscription {
     id: number;
+    plan_id: number;
     is_yearly: boolean;
-    status: 'active' | 'past_due';
+    status: 'active' | 'incomplete' | 'past_due';
     cancel_at: number | null;
+}
+
+export interface MembershipsApiUserSubscription extends Omit<MembershipsApiSubscription, 'plan_id'> {
     plan: MembershipsApiPlan;
 }
 
